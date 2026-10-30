@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>北安农综改数字化平台</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle at 75% 10%,#12372b,#07110f 50%);color:#edf7f2;font-family:"Microsoft YaHei",sans-serif}
+    main{width:min(1100px,92vw)}header{margin-bottom:36px}h1{font-size:34px;margin:0 0 12px}p{color:#91aaa1;margin:0;line-height:1.7}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{display:block;color:inherit;text-decoration:none;background:linear-gradient(145deg,#122720,#0d1d19);border:1px solid #295244;border-radius:16px;padding:25px;transition:.2s;box-shadow:0 20px 55px rgba(0,0,0,.25)}
+    .card:hover{transform:translateY(-4px);border-color:#42d99a}.icon{width:46px;height:46px;border-radius:13px;background:#1c4537;color:#42d99a;display:grid;place-items:center;font-size:22px;margin-bottom:28px}
+    h2{font-size:19px;margin:0 0 12px}.card p{font-size:13px;min-height:66px}.go{display:flex;justify-content:space-between;align-items:center;margin-top:24px;color:#42d99a;font-weight:700}
+    @media(max-width:760px){.grid{grid-template-columns:1fr}h1{font-size:27px}.card p{min-height:auto}}
+  </style>
+<style id="project-ui-theme">
+body{background-color:#021718;background-image:radial-gradient(circle at 50% 0,rgba(16,217,207,.25),transparent 34%),linear-gradient(rgba(17,211,202,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(17,211,202,.04) 1px,transparent 1px),linear-gradient(135deg,#032629,#021516 70%);background-size:auto,34px 34px,34px 34px,auto}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;border:1px solid rgba(20,230,218,.5);box-shadow:inset 0 0 70px rgba(0,255,239,.08)}
+header{text-align:center;padding:20px 0 16px;border-bottom:1px solid rgba(22,225,213,.35);margin-bottom:34px;position:relative}header:after{content:"";position:absolute;left:28%;right:28%;bottom:-2px;height:4px;background:linear-gradient(90deg,transparent,#16e1d5,transparent)}
+h1{letter-spacing:4px;text-shadow:0 0 9px #0bbab3,0 0 24px rgba(12,222,212,.45)}
+.card{background:linear-gradient(145deg,rgba(5,65,66,.86),rgba(2,29,31,.93));border-color:rgba(22,225,213,.5);clip-path:polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px);box-shadow:0 15px 45px rgba(0,0,0,.35),inset 0 0 22px rgba(18,225,213,.04)}
+.card:hover{border-color:#2ffff0;box-shadow:0 0 25px rgba(20,230,218,.13)}.icon{background:rgba(4,132,128,.55);color:#32fff0;box-shadow:0 0 18px rgba(18,225,213,.2)}.go{color:#27f0e3}
+</style>
+</head>
+<body><main><header><h1>北安市现代农业综合改革数字化平台</h1><p>请选择需要进入的业务子系统。三个子系统分别运行在独立页面。</p></header>
+  <div class="grid">
+    <a class="card" href="data-sharing-integration.html"><div class="icon">⇄</div><h2>数据共享与系统集成</h2><p>统一管理跨系统接口、字段映射、数据同步与运行监测。</p><div class="go"><span>进入系统</span><span>→</span></div></a>
+    <a class="card" href="standardized-data-warehouse.html"><div class="icon">▤</div><h2>标准化数据仓库</h2><p>覆盖数据集成、开发、治理、资产、服务与共享申请全生命周期。</p><div class="go"><span>进入系统</span><span>→</span></div></a>
+    <a class="card" href="smart-planting-decision-model.html"><div class="icon">✦</div><h2>智慧种植决策模型</h2><p>融合寒地环境、土壤和历史产量，生成品种、种子与育苗方案。</p><div class="go"><span>进入系统</span><span>→</span></div></a>
+  </div>
+</main></body></html>

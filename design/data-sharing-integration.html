@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据共享与系统集成｜北安农综改</title>
+  <style>
+    :root{
+      --bg:#07110f;--bg2:#0b1815;--panel:#10211d;--panel2:#132923;--line:#25433a;
+      --text:#edf7f2;--muted:#89a59b;--green:#42d99a;--green2:#1fbf83;--lime:#b7ef6b;
+      --blue:#47b5ff;--amber:#ffbd55;--red:#ff6b78;--violet:#9b8cff;--shadow:0 16px 42px rgba(0,0,0,.24)
+    }
+    *{box-sizing:border-box}html{scroll-behavior:smooth}
+    body{margin:0;background:
+      radial-gradient(circle at 80% -20%,rgba(66,217,154,.12),transparent 38%),
+      radial-gradient(circle at -10% 90%,rgba(71,181,255,.08),transparent 38%),var(--bg);
+      color:var(--text);font-family:"Microsoft YaHei","PingFang SC",Arial,sans-serif;font-size:14px}
+    button,input,select{font:inherit}button{cursor:pointer}
+    .shell{min-height:100vh;display:grid;grid-template-columns:240px 1fr}
+    .sidebar{position:fixed;inset:0 auto 0 0;width:240px;padding:22px 16px;border-right:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(16,33,29,.98),rgba(7,17,15,.98));z-index:20;display:flex;flex-direction:column}
+    .brand{display:flex;align-items:center;gap:11px;padding:0 8px 22px;border-bottom:1px solid var(--line)}
+    .brand-mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(145deg,var(--green),#198660);
+      display:grid;place-items:center;box-shadow:0 8px 20px rgba(66,217,154,.2)}
+    .brand-mark svg{width:23px}.brand strong{font-size:15px;display:block}.brand span{color:var(--muted);font-size:11px}
+    .nav-label{font-size:11px;color:#6e8e83;padding:22px 10px 9px;letter-spacing:1px}
+    .nav-item{width:100%;border:0;background:transparent;color:#aac0b8;text-align:left;border-radius:10px;padding:12px 12px;
+      display:flex;align-items:center;gap:10px;margin:3px 0;transition:.2s}
+    .nav-item:hover{background:#172f29;color:#fff}.nav-item.active{background:linear-gradient(90deg,#1e5b46,#183c32);color:#fff;
+      box-shadow:inset 3px 0 var(--green)}.nav-ico{width:24px;height:24px;border-radius:7px;background:#1e3a32;
+      display:grid;place-items:center;font-size:13px}.nav-item.active .nav-ico{background:var(--green);color:#092016}
+    .side-bottom{margin-top:auto}.demo-status{border:1px solid var(--line);background:#0c1c18;padding:12px;border-radius:12px}
+    .demo-status b{display:flex;align-items:center;gap:7px;font-size:12px}.pulse{width:7px;height:7px;border-radius:50%;
+      background:var(--green);box-shadow:0 0 0 5px rgba(66,217,154,.12);animation:pulse 2s infinite}
+    @keyframes pulse{50%{box-shadow:0 0 0 9px rgba(66,217,154,0)}}.demo-status p{color:var(--muted);font-size:11px;margin:9px 0 0;line-height:1.7}
+    .main{grid-column:2;min-width:0}.topbar{height:70px;position:sticky;top:0;z-index:15;display:flex;align-items:center;
+      justify-content:space-between;padding:0 26px;background:rgba(7,17,15,.88);backdrop-filter:blur(15px);border-bottom:1px solid rgba(37,67,58,.8)}
+    .breadcrumbs{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:12px}.breadcrumbs strong{color:var(--text);font-size:14px}
+    .top-actions{display:flex;align-items:center;gap:10px}.clock{color:#a9c1b8;font-size:12px;padding-right:8px}
+    .icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:#10211d;color:#bcd0c9;position:relative}
+    .icon-btn:hover{border-color:#3f7362}.dot{position:absolute;width:7px;height:7px;border-radius:50%;background:var(--red);top:6px;right:6px}
+    .avatar{display:flex;align-items:center;gap:9px;padding-left:6px}.avatar .pic{width:34px;height:34px;border-radius:50%;background:
+      linear-gradient(145deg,#4e806e,#1d4237);display:grid;place-items:center;font-weight:700}.avatar small{display:block;color:var(--muted)}
+    .content{padding:22px 26px 40px;max-width:1800px;margin:auto}.page{display:none}.page.active{display:block}
+    .hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:20px}
+    .hero h1{font-size:25px;margin:0 0 7px;letter-spacing:.3px}.hero p{margin:0;color:var(--muted);line-height:1.6}
+    .hero-actions{display:flex;gap:9px;flex-shrink:0}.btn{border:1px solid var(--line);background:#142a24;color:#d9e8e2;border-radius:9px;
+      padding:9px 14px;display:inline-flex;align-items:center;justify-content:center;gap:7px;transition:.2s}
+    .btn:hover{transform:translateY(-1px);border-color:#477867}.btn.primary{background:var(--green);color:#082017;border-color:var(--green);font-weight:700}
+    .btn.blue{background:#173d55;color:#bfe7ff;border-color:#245c7c}.btn.warn{background:#42321c;color:#ffdda2;border-color:#72542b}
+    .btn.small{padding:6px 10px;font-size:12px;border-radius:7px}.btn.ghost{background:transparent}.btn.danger{color:#ff9da5;border-color:#693942}
+    .metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}.metric{background:linear-gradient(145deg,var(--panel),#0d1d19);
+      border:1px solid var(--line);border-radius:13px;padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .metric:after{content:"";position:absolute;width:70px;height:70px;border-radius:50%;right:-24px;top:-25px;background:var(--glow,rgba(66,217,154,.08))}
+    .metric-head{display:flex;align-items:center;justify-content:space-between;color:#92afa5;font-size:12px}.metric-ico{width:31px;height:31px;
+      border-radius:9px;background:#1a352d;display:grid;place-items:center;color:var(--green)}.metric strong{font-size:26px;display:block;margin:11px 0 5px}
+    .metric-foot{font-size:11px;color:var(--muted)}.up{color:var(--green)}.down{color:var(--red)}.amber{color:var(--amber)}.blue-text{color:var(--blue)}
+    .grid-2{display:grid;grid-template-columns:1.55fr 1fr;gap:14px}.grid-equal{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:linear-gradient(145deg,var(--panel),#0c1b17);
+      border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow);overflow:hidden}
+    .card-head{min-height:54px;padding:13px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .card-title{font-size:14px;font-weight:700}.card-sub{font-size:11px;color:var(--muted);margin-top:3px}.card-body{padding:16px}
+    .toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.search{display:flex;align-items:center;background:#0a1915;border:1px solid var(--line);
+      border-radius:8px;padding:0 10px;min-width:190px}.search input{height:34px;background:transparent;border:0;color:#fff;outline:0;width:100%}
+    select,input[type="date"],input[type="number"],input[type="text"]{background:#0a1915;border:1px solid var(--line);color:#dcebe6;
+      border-radius:8px;height:36px;padding:0 10px;outline:none}select:focus,input:focus{border-color:var(--green)}
+    table{width:100%;border-collapse:collapse}th{text-align:left;color:#769488;font-size:11px;font-weight:500;padding:10px 11px;border-bottom:1px solid var(--line)}
+    td{padding:11px;border-bottom:1px solid rgba(37,67,58,.65);color:#c8dad4;font-size:12px}tr:last-child td{border-bottom:0}
+    tbody tr:hover{background:rgba(43,82,69,.16)}.status{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:99px;font-size:11px}
+    .status:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}.status.ok{color:#58dfa7;background:rgba(66,217,154,.09)}
+    .status.run{color:#63c4ff;background:rgba(71,181,255,.09)}.status.warn{color:#ffbd55;background:rgba(255,189,85,.09)}
+    .status.bad{color:#ff7e8a;background:rgba(255,107,120,.09)}.status.off{color:#92a49e;background:rgba(137,165,155,.09)}
+    .tag{display:inline-block;background:#17342b;color:#83cbb2;border:1px solid #295545;padding:3px 7px;border-radius:5px;font-size:10px;margin:2px}
+    .source-flow{display:grid;grid-template-columns:1fr 64px 1.15fr 64px 1fr;align-items:center;min-height:270px}
+    .source-list{display:grid;gap:9px}.source-node{border:1px solid var(--line);background:#10231e;border-radius:9px;padding:10px;display:flex;align-items:center;
+      gap:9px;transition:.2s;cursor:pointer}.source-node:hover,.source-node.active{border-color:var(--green);background:#16362c;transform:translateX(2px)}
+    .node-ico{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;background:#203f36;color:var(--green)}
+    .source-node b{display:block;font-size:12px}.source-node span{font-size:10px;color:var(--muted)}.flow-arrow{text-align:center;color:#57b58f;font-size:24px;position:relative}
+    .flow-arrow:after{content:"";display:block;height:2px;margin-top:-13px;background:linear-gradient(90deg,transparent,var(--green),transparent);animation:flow 1.8s infinite}
+    @keyframes flow{50%{filter:brightness(1.8)}}.hub{width:165px;height:165px;border-radius:50%;margin:auto;border:1px solid #2c6553;position:relative;
+      display:grid;place-items:center;background:radial-gradient(circle,#173f33,#0d211c 67%);box-shadow:0 0 0 12px rgba(66,217,154,.03),0 0 60px rgba(66,217,154,.08)}
+    .hub:before,.hub:after{content:"";position:absolute;border:1px dashed rgba(66,217,154,.28);border-radius:50%;inset:14px;animation:spin 16s linear infinite}
+    .hub:after{inset:-10px;animation-direction:reverse;animation-duration:26s}@keyframes spin{to{transform:rotate(360deg)}}
+    .hub strong{font-size:16px;text-align:center;line-height:1.5}.hub small{display:block;color:var(--green);font-weight:400}
+    .log-list{max-height:245px;overflow:auto}.log{display:grid;grid-template-columns:64px 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid rgba(37,67,58,.55);font-size:11px}
+    .log time{color:#6f8c81}.log p{margin:0;color:#b7cac3}.log b{font-weight:500}.progress{height:5px;background:#193128;border-radius:9px;overflow:hidden;margin-top:6px}
+    .progress i{display:block;height:100%;width:var(--p);background:linear-gradient(90deg,var(--green2),var(--lime));border-radius:9px;transition:width .5s}
+    .section-tabs{display:flex;gap:4px;padding:5px;background:#0c1d18;border:1px solid var(--line);border-radius:10px;margin-bottom:14px;overflow:auto}
+    .section-tab{border:0;color:#8da99f;background:transparent;padding:9px 13px;border-radius:7px;white-space:nowrap}.section-tab.active{background:#1b3c31;color:#fff}
+    .subview{display:none}.subview.active{display:block}.pipeline{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;position:relative}
+    .pipeline:before{content:"";height:2px;background:#2c584a;position:absolute;top:29px;left:10%;right:10%;z-index:0}.layer{position:relative;z-index:1}
+    .layer-head{height:58px;border-radius:10px;background:#17382f;border:1px solid #326853;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700}
+    .layer:nth-child(2) .layer-head{background:#173141;border-color:#315e78}.layer:nth-child(3) .layer-head{background:#313321;border-color:#68693a}
+    .layer:nth-child(4) .layer-head{background:#38283f;border-color:#694779}.layer ul{list-style:none;padding:9px 0 0;margin:0}.layer li{font-size:11px;color:#96aca4;
+      padding:7px 10px;border-bottom:1px dashed rgba(37,67,58,.6);display:flex;justify-content:space-between}
+    .chart-wrap{height:210px;position:relative}.chart-svg{width:100%;height:100%;overflow:visible}.gridline{stroke:#25433a;stroke-width:1}
+    .axis-text{fill:#78958a;font-size:10px}.line-green{fill:none;stroke:var(--green);stroke-width:3;stroke-linejoin:round}.line-blue{fill:none;stroke:var(--blue);stroke-width:3}
+    .area-green{fill:url(#greenFill)}.bar{fill:#2a6e56}.bar:hover{fill:var(--green)}.quality-ring{width:140px;height:140px;margin:auto;border-radius:50%;
+      display:grid;place-items:center;background:conic-gradient(var(--green) 0 96.8%,#21382f 96.8%);position:relative}
+    .quality-ring:after{content:"";position:absolute;inset:13px;background:#0f211c;border-radius:50%}.quality-ring strong{font-size:27px;z-index:1}.quality-ring small{z-index:1;color:var(--muted)}
+    .quality-legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}.qitem{background:#10231e;border:1px solid var(--line);padding:9px;border-radius:8px}
+    .qitem b{display:block;font-size:15px}.qitem span{font-size:10px;color:var(--muted)}
+    .lineage{min-height:260px;position:relative;background-image:radial-gradient(#1f3b32 1px,transparent 1px);background-size:18px 18px;border-radius:10px;overflow:hidden}
+    .lineage svg{position:absolute;inset:0;width:100%;height:100%}.lineage path{fill:none;stroke:#3d7d67;stroke-width:2;stroke-dasharray:6 4}
+    .ln-node{position:absolute;border:1px solid #346b57;background:#15352b;padding:9px 12px;border-radius:8px;font-size:11px;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+    .ln-node b{display:block;margin-bottom:3px}.ln-node small{color:#78a294}.ln1{left:4%;top:17%}.ln2{left:4%;bottom:14%}.ln3{left:37%;top:38%;border-color:#3879a0;background:#163244}
+    .ln4{right:5%;top:15%;border-color:#777339;background:#38351f}.ln5{right:5%;bottom:13%;border-color:#745184;background:#392842}
+    .catalog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.catalog{border:1px solid var(--line);background:#10231e;border-radius:10px;padding:13px;cursor:pointer}
+    .catalog:hover{border-color:#3d705f}.catalog .c-ico{font-size:21px;margin-bottom:9px}.catalog strong{display:block}.catalog span{font-size:11px;color:var(--muted);line-height:1.7}
+    .model-layout{display:grid;grid-template-columns:310px 1fr;gap:14px}.param-panel{background:linear-gradient(145deg,#11251f,#0b1a16);border:1px solid var(--line);
+      border-radius:13px;overflow:hidden;height:max-content;position:sticky;top:92px}.param-head{padding:16px;border-bottom:1px solid var(--line)}.param-head h3{margin:0 0 5px}
+    .param-head p{margin:0;font-size:11px;color:var(--muted)}.form-body{padding:16px}.field{margin-bottom:15px}.field label{display:flex;justify-content:space-between;
+      font-size:11px;color:#9bb1a8;margin-bottom:7px}.field select,.field input[type="number"]{width:100%}.range-row{display:flex;gap:10px;align-items:center}
+    input[type="range"]{appearance:none;height:5px;background:#294a3f;border-radius:9px;flex:1}input[type="range"]::-webkit-slider-thumb{appearance:none;width:15px;height:15px;
+      background:var(--green);border-radius:50%;border:3px solid #15352b}.range-val{width:58px;color:var(--green);font-weight:700;font-size:12px;text-align:right}
+    .field-check{display:grid;grid-template-columns:1fr 1fr;gap:7px}.check{border:1px solid var(--line);padding:8px;border-radius:7px;color:#89a49a;font-size:11px;cursor:pointer}
+    .check.active{border-color:var(--green);background:#15362b;color:#c9f3e3}.run-btn{width:100%;height:42px}.model-main{min-width:0}.result-hero{display:grid;
+      grid-template-columns:1.2fr 1fr;gap:14px;margin-bottom:14px}.recommend{border:1px solid #2c6b53;background:linear-gradient(135deg,#173c30,#10241e);border-radius:13px;padding:18px;position:relative;overflow:hidden}
+    .recommend:after{content:"";position:absolute;width:170px;height:170px;border-radius:50%;right:-70px;top:-70px;background:rgba(66,217,154,.08)}
+    .rec-top{display:flex;justify-content:space-between}.rec-label{font-size:11px;color:#8bb4a4}.recommend h2{margin:8px 0 3px;font-size:25px}.score{font-size:30px;color:var(--lime);font-weight:700}
+    .score small{font-size:11px;color:#8fa79e;font-weight:400}.rec-tags{margin:13px 0}.rec-reason{font-size:11px;color:#a9bdb5;line-height:1.8;margin:0}
+    .radar-box{border:1px solid var(--line);background:#0f211c;border-radius:13px;padding:10px;display:grid;place-items:center}.radar{height:190px;width:100%}
+    .radar polygon{fill:none;stroke:#2a5345}.radar .data{fill:rgba(66,217,154,.2);stroke:var(--green);stroke-width:2}.radar text{fill:#829f95;font-size:9px}
+    .rank-row{display:grid;grid-template-columns:34px 1fr 110px 50px;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid rgba(37,67,58,.65)}
+    .rank-row:last-child{border:0}.rank{width:26px;height:26px;border-radius:7px;background:#19352c;display:grid;place-items:center;color:#a6beb5;font-weight:700}
+    .rank.first{background:var(--green);color:#092016}.variety b{display:block}.variety span{font-size:10px;color:var(--muted)}.scorebar{height:6px;background:#1f3931;border-radius:8px}
+    .scorebar i{height:100%;display:block;border-radius:8px;background:linear-gradient(90deg,var(--green2),var(--lime));width:var(--w)}.rank-score{color:var(--lime);text-align:right;font-weight:700}
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stage{border:1px solid var(--line);border-radius:9px;padding:12px;position:relative}.stage.active{border-color:var(--green);background:#153129}
+    .stage .day{font-size:10px;color:var(--muted)}.stage b{display:block;margin:6px 0}.stage p{font-size:10px;line-height:1.7;color:#90a79f;margin:0}.stage-num{position:absolute;right:9px;top:9px;color:#365b4f;font-size:20px;font-weight:700}
+    .alert-list{display:grid;gap:9px}.alert{display:flex;gap:10px;padding:10px;border:1px solid var(--line);border-radius:9px;background:#10231e}.alert-ico{width:30px;height:30px;
+      border-radius:8px;background:#41311e;color:var(--amber);display:grid;place-items:center}.alert b{font-size:12px;display:block}.alert p{font-size:10px;color:var(--muted);margin:4px 0 0;line-height:1.6}
+    .empty{padding:30px;text-align:center;color:var(--muted)}.modal-backdrop{position:fixed;inset:0;background:rgba(1,8,6,.72);backdrop-filter:blur(4px);z-index:100;
+      display:none;align-items:center;justify-content:center;padding:20px}.modal-backdrop.show{display:flex}.modal{width:min(650px,100%);max-height:88vh;overflow:auto;background:#10231e;
+      border:1px solid #315b4d;border-radius:15px;box-shadow:0 30px 80px rgba(0,0,0,.5);animation:modal .2s ease}
+    @keyframes modal{from{transform:scale(.96);opacity:0}}.modal-head{padding:16px 19px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+    .modal-head h3{margin:0}.modal-close{background:transparent;color:#91aaa1;border:0;font-size:21px}.modal-body{padding:18px}.modal-foot{padding:13px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.form-item label{font-size:11px;color:#89a49b;display:block;margin-bottom:6px}.form-item input,.form-item select{width:100%}
+    .form-item.full{grid-column:1/-1}.toast-wrap{position:fixed;right:22px;bottom:22px;z-index:200;display:grid;gap:9px}.toast{min-width:280px;padding:13px 15px;border:1px solid #336552;
+      border-radius:10px;background:#15352b;box-shadow:0 18px 40px rgba(0,0,0,.34);animation:toast .25s ease}.toast b{display:block;font-size:12px}.toast span{font-size:10px;color:#9cb3aa}
+    @keyframes toast{from{transform:translateX(20px);opacity:0}}.skeleton{position:relative;overflow:hidden}.skeleton:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+      transform:translateX(-100%);animation:shine 1s infinite}@keyframes shine{to{transform:translateX(100%)}}
+    .mobile-menu{display:none}.no-results{display:none;text-align:center;padding:25px;color:var(--muted)}
+    @media(max-width:1180px){.metric-grid{grid-template-columns:repeat(2,1fr)}.grid-2,.result-hero{grid-template-columns:1fr}.catalog-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:820px){.shell{display:block}.sidebar{transform:translateX(-100%);transition:.25s}.sidebar.open{transform:translateX(0)}.main{grid-column:auto}
+      .mobile-menu{display:block}.clock,.avatar div:last-child{display:none}.content{padding:17px}.topbar{padding:0 16px}.hero{align-items:flex-start;flex-direction:column}.model-layout{grid-template-columns:1fr}
+      .param-panel{position:static}.grid-equal,.grid-3{grid-template-columns:1fr}.source-flow{grid-template-columns:1fr;gap:12px}.flow-arrow{transform:rotate(90deg)}.pipeline{grid-template-columns:1fr}
+      .pipeline:before{display:none}.timeline{grid-template-columns:1fr 1fr}.metric-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:540px){.metric-grid{grid-template-columns:1fr}.hero-actions{width:100%}.hero-actions .btn{flex:1}.form-grid{grid-template-columns:1fr}.form-item.full{grid-column:auto}
+      .catalog-grid,.timeline{grid-template-columns:1fr}.rank-row{grid-template-columns:30px 1fr 42px}.scorebar{display:none}}
+      .nav-item{text-decoration:none}
+  </style>
+<style id="project-ui-theme">
+:root{--bg:#021718;--bg2:#032426;--panel:rgba(4,48,50,.88);--panel2:rgba(5,60,62,.9);--line:rgba(18,213,205,.5);--text:#efffff;--muted:#82bdb9;--green:#16e1d5;--green2:#04aead;--lime:#7dfff4;--blue:#1ca8ff;--amber:#ffe04d;--red:#ff6677;--violet:#9d91ff;--shadow:0 14px 35px rgba(0,0,0,.35),inset 0 0 22px rgba(9,209,199,.035)}
+body{background-color:#021718;background-image:radial-gradient(circle at 50% 5%,rgba(13,191,181,.2),transparent 34%),linear-gradient(rgba(17,211,202,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(17,211,202,.035) 1px,transparent 1px),linear-gradient(135deg,#032022,#021516 66%);background-size:auto,34px 34px,34px 34px,auto}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:90;background:linear-gradient(90deg,rgba(14,225,214,.38),transparent 1.2%,transparent 98.8%,rgba(14,225,214,.38)),linear-gradient(180deg,rgba(14,225,214,.25),transparent 1.2%,transparent 98.8%,rgba(14,225,214,.2));box-shadow:inset 0 0 80px rgba(0,255,239,.08)}
+.sidebar{background:linear-gradient(180deg,rgba(3,35,37,.98),rgba(2,22,23,.98));border-right:1px solid rgba(20,230,218,.48);box-shadow:8px 0 34px rgba(0,0,0,.26)}
+.brand{border-bottom-color:rgba(20,230,218,.3)}.brand-mark{background:linear-gradient(145deg,#16e1d5,#037c7c);box-shadow:0 0 24px rgba(22,225,213,.4)}
+.nav-label{color:#5da9a5}.nav-item{color:#94c9c5}.nav-item:hover{background:rgba(10,99,98,.35);color:#fff}.nav-item.active{background:linear-gradient(90deg,rgba(4,149,145,.52),rgba(4,75,76,.42));box-shadow:inset 3px 0 #21fff0,0 0 18px rgba(10,205,195,.08)}
+.nav-ico{background:rgba(10,92,91,.45);color:#76d9d3}.nav-item.active .nav-ico{background:#1be0d5;color:#012d2d;box-shadow:0 0 13px rgba(22,225,213,.42)}
+.topbar{height:84px;background:linear-gradient(180deg,rgba(2,34,36,.98),rgba(3,22,24,.92));border-bottom:1px solid rgba(16,224,213,.54);box-shadow:0 7px 28px rgba(0,0,0,.3);overflow:hidden}
+.topbar:before{content:"数智农业指挥平台";position:absolute;left:50%;top:13px;transform:translateX(-50%);font-size:27px;font-weight:800;letter-spacing:5px;color:#eaffff;text-shadow:0 0 7px #11ddd2,0 0 24px rgba(10,230,220,.7);white-space:nowrap}
+.topbar:after{content:"";position:absolute;left:33%;right:33%;bottom:0;height:8px;border-top:2px solid #16e1d5;background:linear-gradient(90deg,transparent,rgba(22,225,213,.75),transparent);clip-path:polygon(0 0,12% 0,16% 100%,84% 100%,88% 0,100% 0);filter:drop-shadow(0 0 6px #16e1d5)}
+.breadcrumbs{z-index:2}.top-actions{z-index:2}.content{padding-top:29px}.hero{padding:2px 2px 8px}.hero h1{color:#f4ffff;text-shadow:0 0 12px rgba(17,225,214,.32);letter-spacing:1px}.hero p{color:#80c5c0}
+.card,.metric,.param-panel,.recommend,.radar-box{background:linear-gradient(145deg,rgba(5,56,58,.91),rgba(2,29,31,.93));border-color:rgba(18,213,205,.5);box-shadow:var(--shadow);clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px)}
+.card:hover,.metric:hover{border-color:rgba(38,255,241,.72)}.card-head{background:linear-gradient(90deg,rgba(5,97,98,.45),rgba(3,42,44,.12));border-bottom-color:rgba(18,213,205,.38)}
+.card-title{color:#f3ffff;text-shadow:0 0 8px rgba(15,219,209,.22)}.card-sub,.metric-foot{color:#78b8b4}.metric strong{color:#f5ffff;text-shadow:0 0 10px rgba(19,225,214,.15)}
+.metric-ico{background:rgba(7,105,102,.42);color:#20f0e4;box-shadow:inset 0 0 12px rgba(18,225,213,.12)}.btn{background:rgba(4,54,56,.82);border-color:rgba(20,213,203,.48);color:#dffffc}.btn:hover{border-color:#20f3e6;box-shadow:0 0 13px rgba(21,226,215,.18)}.btn.primary{background:linear-gradient(135deg,#19e2d6,#06aaa8);border-color:#37fff1;color:#012e2c;box-shadow:0 0 18px rgba(17,225,214,.24)}
+.btn.blue{background:linear-gradient(135deg,#0c7ba7,#095677);border-color:#21c9ff;color:#e5f9ff}.btn.warn{background:rgba(92,72,13,.72);border-color:#e0c13e;color:#ffe66a}
+.section-tabs{background:rgba(2,32,34,.88);border-color:rgba(18,213,205,.4)}.section-tab.active{background:linear-gradient(135deg,rgba(8,151,147,.65),rgba(5,80,81,.75));color:#fff;box-shadow:inset 0 0 14px rgba(22,225,213,.12)}
+table th{color:#72d9d2;background:rgba(5,94,94,.2);border-bottom-color:rgba(18,213,205,.38)}td{border-bottom-color:rgba(18,130,128,.28);color:#d0e9e7}tbody tr:hover{background:rgba(8,130,128,.14)}
+select,input[type="date"],input[type="number"],input[type="text"],.search{background:rgba(1,28,30,.86);border-color:rgba(18,183,179,.5);color:#eafffd}.search input{background:transparent;border:0}.status.ok{color:#28f0c4;background:rgba(5,156,128,.14)}.status.run{color:#29cfff;background:rgba(24,159,216,.13)}
+.source-node{background:rgba(4,51,52,.82);border-color:rgba(18,188,182,.4)}.source-node:hover,.source-node.active{border-color:#21f5e7;background:rgba(5,93,92,.6);box-shadow:0 0 14px rgba(17,225,214,.13)}.node-ico{background:rgba(6,104,101,.5);color:#31f6e8}
+.hub{border-color:#19eadf;background:radial-gradient(circle,rgba(5,108,105,.75),rgba(2,34,36,.92) 67%);box-shadow:0 0 0 10px rgba(22,225,213,.035),0 0 50px rgba(22,225,213,.18)}.hub:before,.hub:after{border-color:rgba(37,255,241,.4)}
+.layer-head{border-color:#19d9cf!important;box-shadow:inset 0 0 18px rgba(15,218,207,.12)}.pipeline:before{background:linear-gradient(90deg,#0b7775,#21f5e7,#0b7775)}
+.quality-ring{background:conic-gradient(#16e1d5 0 96.8%,#174748 96.8%);box-shadow:0 0 18px rgba(22,225,213,.18)}.qitem,.alert,.catalog,.stage{background:rgba(4,49,51,.7);border-color:rgba(18,188,182,.38)}
+.lineage{background-color:rgba(1,28,30,.82);background-image:radial-gradient(rgba(23,203,195,.35) 1px,transparent 1px)}.ln-node{background:rgba(5,70,69,.95);border-color:#18d7cd;box-shadow:0 0 18px rgba(16,214,204,.12)}
+.recommend{border-color:#1ff5e7;background:linear-gradient(135deg,rgba(4,89,86,.9),rgba(2,37,39,.94));box-shadow:inset 0 0 35px rgba(17,225,214,.05),0 0 18px rgba(17,225,214,.12)}.score,.rank-score{color:#ffe85a;text-shadow:0 0 10px rgba(255,224,77,.32)}
+.rank.first{background:#18e2d6;color:#012e2d;box-shadow:0 0 12px rgba(22,225,213,.32)}.scorebar i,.progress i{background:linear-gradient(90deg,#10beb8,#3ffff0,#e7f75b)}.stage.active{border-color:#19e9de;background:rgba(5,91,88,.55)}
+.modal{background:linear-gradient(145deg,#063c3e,#021e20);border-color:#20ddd4;box-shadow:0 0 45px rgba(14,218,208,.18),0 30px 80px rgba(0,0,0,.5)}.toast{background:#06494a;border-color:#24e3d8}
+.axis-text{fill:#83c9c4}.gridline{stroke:rgba(31,159,155,.35)}.line-green{stroke:#22e9dc}.area-green{filter:drop-shadow(0 0 4px rgba(34,233,220,.2))}.bar{fill:#087f7e}.bar:hover{fill:#20e7dc}
+@media(max-width:1180px){.topbar:before{font-size:20px;letter-spacing:3px}.topbar:after{left:29%;right:29%}}
+@media(max-width:900px){.topbar:before,.topbar:after{display:none}.topbar{height:70px}}
+</style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M7 24C7 14 13 7 24 5c0 10-6 18-17 19Z" fill="#08251a"/><path d="M8 23c5-6 9-9 15-13M12 17l-1-6M16 13l5 1" stroke="#d8ffeb" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </div>
+        <div><strong>北安农综改</strong><span>数字化综合管理平台</span></div>
+      </div>
+      <div class="nav-label">业务子系统</div>
+      <a class="nav-item active" href="data-sharing-integration.html"><span class="nav-ico">⇄</span><span>数据共享与系统集成</span></a>
+      <a class="nav-item" href="standardized-data-warehouse.html"><span class="nav-ico">▤</span><span>标准化数据仓库</span></a>
+      <a class="nav-item" href="smart-planting-decision-model.html"><span class="nav-ico">✦</span><span>智慧种植决策模型</span></a>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div style="display:flex;align-items:center;gap:12px">
+          <button class="icon-btn mobile-menu" id="mobileMenu">☰</button>
+          <div class="breadcrumbs"><span>北安市现代农业综合改革</span><span>/</span><strong id="crumb">数据共享与系统集成</strong></div>
+        </div>
+        <div class="top-actions">
+          <span class="clock" id="clock">2026-10-28 16:30:26</span>
+          <button class="icon-btn" id="refreshBtn" title="刷新数据">↻</button>
+          <button class="icon-btn" data-action="message" title="消息">♢<i class="dot"></i></button>
+          <div class="avatar"><div class="pic">管</div><div><b>平台管理员</b><small>北安市农业农村局</small></div></div>
+        </div>
+      </header>
+      <div class="content">
+        <section class="page active" id="page-share">
+          <div class="hero">
+            <div><h1>数据共享与系统集成</h1><p>统一管理跨系统接口、字段映射与同步任务，支撑农业、政务、视频及专题数据协同。</p></div>
+            <div class="hero-actions"><button class="btn" id="shareReport">⤓ 导出演示报告</button><button class="btn primary" id="newInterface">＋ 新建接口</button></div>
+          </div>
+          <div class="metric-grid">
+            <div class="metric" style="--glow:rgba(66,217,154,.13)"><div class="metric-head"><span>接入系统</span><i class="metric-ico">⌘</i></div><strong>18</strong><div class="metric-foot"><span class="up">↑ 2 个</span> 本月新增</div></div>
+            <div class="metric" style="--glow:rgba(71,181,255,.12)"><div class="metric-head"><span>接口总数</span><i class="metric-ico" style="color:var(--blue)">⇄</i></div><strong id="apiCount">126</strong><div class="metric-foot"><span class="blue-text">118</span> 个运行中</div></div>
+            <div class="metric" style="--glow:rgba(183,239,107,.1)"><div class="metric-head"><span>今日交换数据</span><i class="metric-ico" style="color:var(--lime)">▥</i></div><strong id="exchangeNum">286.4<small style="font-size:12px"> 万条</small></strong><div class="metric-foot"><span class="up">↑ 8.6%</span> 较昨日</div></div>
+            <div class="metric" style="--glow:rgba(255,189,85,.1)"><div class="metric-head"><span>同步成功率</span><i class="metric-ico" style="color:var(--amber)">✓</i></div><strong>99.72<small style="font-size:12px">%</small></strong><div class="metric-foot"><span class="amber">3</span> 个任务待复核</div></div>
+          </div>
+          <div class="grid-2">
+            <div class="card">
+              <div class="card-head"><div><div class="card-title">跨系统数据流转</div><div class="card-sub">点击数据源查看当前同步状态</div></div><span class="status ok">运行正常</span></div>
+              <div class="card-body">
+                <div class="source-flow">
+                  <div class="source-list">
+                    <div class="source-node active" data-source="数智农业指挥平台"><i class="node-ico">农</i><div><b>数智农业指挥平台</b><span>用户 · 项目 · 地块 · 设备</span></div></div>
+                    <div class="source-node" data-source="政务村务资源库"><i class="node-ico">政</i><div><b>政务村务资源库</b><span>主体 · 监管 · 村务</span></div></div>
+                    <div class="source-node" data-source="视频感知平台"><i class="node-ico">视</i><div><b>视频感知平台</b><span>350 个点位 · 实时状态</span></div></div>
+                  </div>
+                  <div class="flow-arrow">›</div>
+                  <div class="hub"><strong>集成交换中心<small id="hubStatus">指挥平台同步中</small></strong></div>
+                  <div class="flow-arrow">›</div>
+                  <div class="source-list">
+                    <div class="source-node"><i class="node-ico">仓</i><div><b>标准化数据仓库</b><span>ODS · DWD · DWS · ADS</span></div></div>
+                    <div class="source-node"><i class="node-ico">屏</i><div><b>指挥展示系统</b><span>专题大屏 · 态势总览</span></div></div>
+                    <div class="source-node"><i class="node-ico">模</i><div><b>种植决策模型</b><span>品种 · 种子 · 育苗</span></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div><div class="card-title">实时交换日志</div><div class="card-sub">最近 15 分钟数据流转记录</div></div><button class="btn small ghost" id="clearLogs">清屏</button></div>
+              <div class="card-body"><div class="log-list" id="shareLogs"></div></div>
+            </div>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <div class="card-head">
+              <div><div class="card-title">同步任务监测</div><div class="card-sub">全量、增量同步任务执行状态与异常重试</div></div>
+              <div class="toolbar"><div class="search">⌕<input id="shareSearch" placeholder="搜索任务或接口"></div><select id="shareStatus"><option value="">全部状态</option><option>运行中</option><option>正常</option><option>待复核</option></select></div>
+            </div>
+            <div style="overflow:auto"><table><thead><tr><th>任务名称</th><th>数据来源</th><th>同步策略</th><th>本次交换</th><th>最后执行</th><th>状态 / 进度</th><th>操作</th></tr></thead><tbody id="shareTaskBody"></tbody></table><div class="no-results" id="shareNoResults">未找到匹配任务</div></div>
+          </div>
+        </section>
+
+        <section class="page" id="page-warehouse">
+          <div class="hero">
+            <div><h1>标准化数据仓库</h1><p>覆盖数据集成、开发、治理、资产、服务与共享申请的农业数据全生命周期。</p></div>
+            <div class="hero-actions"><button class="btn" id="warehouseScan">♧ 质量巡检</button><button class="btn primary" id="newResource">＋ 新增数据资源</button></div>
+          </div>
+          <div class="section-tabs" id="warehouseTabs">
+            <button class="section-tab active" data-view="warehouse-overview">数仓总览</button>
+            <button class="section-tab" data-view="warehouse-govern">数据治理</button>
+            <button class="section-tab" data-view="warehouse-assets">数据资产与服务</button>
+            <button class="section-tab" data-view="warehouse-schedule">调度中心</button>
+          </div>
+          <div class="subview active" id="warehouse-overview">
+            <div class="metric-grid">
+              <div class="metric"><div class="metric-head"><span>数据资源总量</span><i class="metric-ico">▦</i></div><strong>12.86<small style="font-size:12px"> TB</small></strong><div class="metric-foot"><span class="up">↑ 324 GB</span> 本月新增</div></div>
+              <div class="metric"><div class="metric-head"><span>数据表</span><i class="metric-ico" style="color:var(--blue)">▤</i></div><strong>1,248</strong><div class="metric-foot">覆盖 <span class="blue-text">12</span> 个业务主题</div></div>
+              <div class="metric"><div class="metric-head"><span>数据标准</span><i class="metric-ico" style="color:var(--lime)">◇</i></div><strong>386</strong><div class="metric-foot"><span class="up">94.6%</span> 标准落标率</div></div>
+              <div class="metric"><div class="metric-head"><span>对外数据服务</span><i class="metric-ico" style="color:var(--amber)">API</i></div><strong>78</strong><div class="metric-foot">今日调用 <span class="amber">18,642</span> 次</div></div>
+            </div>
+            <div class="card">
+              <div class="card-head"><div><div class="card-title">数据仓库分层架构</div><div class="card-sub">贴源接入、明细加工、主题汇总与应用服务</div></div><span class="status ok">12 个主题域</span></div>
+              <div class="card-body"><div class="pipeline">
+                <div class="layer"><div class="layer-head"><span>ODS</span> 数据引入层</div><ul><li>气象原始数据 <b>326 GB</b></li><li>土壤检测数据 <b>188 GB</b></li><li>田间物联网 <b>1.24 TB</b></li><li>政务业务数据 <b>472 GB</b></li></ul></div>
+                <div class="layer"><div class="layer-head"><span>DWD</span> 明细数据层</div><ul><li>地块标准明细 <b>86 表</b></li><li>设备监测明细 <b>124 表</b></li><li>农事作业明细 <b>65 表</b></li><li>主体监管明细 <b>78 表</b></li></ul></div>
+                <div class="layer"><div class="layer-head"><span>DWS</span> 汇总数据层</div><ul><li>农业生产主题 <b>42 表</b></li><li>耕地质量主题 <b>31 表</b></li><li>乡村治理主题 <b>38 表</b></li><li>产销服务主题 <b>29 表</b></li></ul></div>
+                <div class="layer"><div class="layer-head"><span>ADS</span> 应用数据层</div><ul><li>领导驾驶舱 <b>18 表</b></li><li>智慧种植模型 <b>26 表</b></li><li>农事服务应用 <b>21 表</b></li><li>专题统计报表 <b>34 表</b></li></ul></div>
+              </div></div>
+            </div>
+            <div class="grid-2" style="margin-top:14px">
+              <div class="card"><div class="card-head"><div><div class="card-title">数据增长趋势</div><div class="card-sub">近 7 个月入仓数据量（TB）</div></div><span class="up">+17.8%</span></div><div class="card-body"><div class="chart-wrap">
+                <svg class="chart-svg" viewBox="0 0 620 210" preserveAspectRatio="none"><defs><linearGradient id="greenFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#42d99a" stop-opacity=".34"/><stop offset="1" stop-color="#42d99a" stop-opacity="0"/></linearGradient></defs>
+                  <g><line class="gridline" x1="35" y1="25" x2="605" y2="25"/><line class="gridline" x1="35" y1="72" x2="605" y2="72"/><line class="gridline" x1="35" y1="119" x2="605" y2="119"/><line class="gridline" x1="35" y1="166" x2="605" y2="166"/></g>
+                  <path class="area-green" d="M38 158 L130 142 L222 126 L314 112 L406 88 L498 62 L600 37 L600 167 L38 167Z"/><polyline class="line-green" points="38,158 130,142 222,126 314,112 406,88 498,62 600,37"/>
+                  <g class="axis-text"><text x="28" y="190">4月</text><text x="120" y="190">5月</text><text x="212" y="190">6月</text><text x="304" y="190">7月</text><text x="396" y="190">8月</text><text x="488" y="190">9月</text><text x="586" y="190">10月</text></g>
+                </svg></div></div></div>
+              <div class="card"><div class="card-head"><div><div class="card-title">今日调度状态</div><div class="card-sub">生产任务执行情况</div></div><button class="btn small ghost" data-view-jump="warehouse-schedule">查看任务</button></div>
+                <div class="card-body" style="display:grid;grid-template-columns:155px 1fr;align-items:center"><div class="quality-ring" style="background:conic-gradient(var(--green) 0 92%,var(--amber) 92% 97%,var(--red) 97% 100%)"><div style="z-index:2;text-align:center"><strong>348</strong><small style="display:block">任务总数</small></div></div><div class="quality-legend"><div class="qitem"><b class="up">321</b><span>执行成功</span></div><div class="qitem"><b class="blue-text">18</b><span>正在运行</span></div><div class="qitem"><b class="amber">6</b><span>等待执行</span></div><div class="qitem"><b class="down">3</b><span>执行失败</span></div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="subview" id="warehouse-govern">
+            <div class="grid-equal">
+              <div class="card"><div class="card-head"><div><div class="card-title">数据质量评估</div><div class="card-sub">完整性、唯一性、规范性与及时性</div></div><button class="btn small" id="runQuality">立即检测</button></div><div class="card-body"><div style="display:grid;grid-template-columns:170px 1fr;align-items:center"><div class="quality-ring"><div style="z-index:2;text-align:center"><strong id="qualityScore">96.8</strong><small style="display:block">综合质量分</small></div></div><div class="quality-legend"><div class="qitem"><b>98.2%</b><span>数据完整性</span></div><div class="qitem"><b>99.1%</b><span>主键唯一性</span></div><div class="qitem"><b>95.6%</b><span>标准规范性</span></div><div class="qitem"><b>94.4%</b><span>更新及时性</span></div></div></div></div></div>
+              <div class="card"><div class="card-head"><div><div class="card-title">问题数据分布</div><div class="card-sub">今日发现 1,284 条异常记录</div></div><span class="status warn">待治理</span></div><div class="card-body"><div class="chart-wrap"><svg class="chart-svg" viewBox="0 0 520 210" preserveAspectRatio="none">
+                <line class="gridline" x1="30" y1="170" x2="500" y2="170"/><rect class="bar" x="55" y="50" width="55" height="120" rx="5"/><rect class="bar" x="150" y="86" width="55" height="84" rx="5"/><rect class="bar" x="245" y="113" width="55" height="57" rx="5"/><rect class="bar" x="340" y="131" width="55" height="39" rx="5"/><rect class="bar" x="435" y="148" width="55" height="22" rx="5"/>
+                <g class="axis-text"><text x="58" y="193">空值异常</text><text x="153" y="193">编码不符</text><text x="248" y="193">重复数据</text><text x="343" y="193">格式错误</text><text x="438" y="193">更新延迟</text></g></svg></div></div></div>
+            </div>
+            <div class="card" style="margin-top:14px"><div class="card-head"><div><div class="card-title">数据血缘分析</div><div class="card-sub">追踪地块综合画像表的上下游加工路径</div></div><button class="btn small" id="lineageDetail">查看完整血缘</button></div><div class="card-body"><div class="lineage">
+              <svg viewBox="0 0 900 260" preserveAspectRatio="none"><path d="M150 55 C280 55 245 118 360 125"/><path d="M150 205 C270 205 260 145 360 135"/><path d="M500 130 C620 130 630 55 750 55"/><path d="M500 135 C630 135 625 205 750 205"/></svg>
+              <div class="ln-node ln1"><b>ods_land_parcel</b><small>地块确权原始表</small></div><div class="ln-node ln2"><b>ods_soil_test</b><small>土壤检测原始表</small></div>
+              <div class="ln-node ln3"><b>dws_parcel_profile</b><small>地块综合画像表</small></div><div class="ln-node ln4"><b>ads_command_map</b><small>指挥地图专题</small></div>
+              <div class="ln-node ln5"><b>model_variety_input</b><small>品种推荐模型输入</small></div></div></div></div>
+            <div class="card" style="margin-top:14px"><div class="card-head"><div><div class="card-title">标准与质量规则</div><div class="card-sub">字段标准、值域标准、质量规则及执行状态</div></div><div class="search">⌕<input id="ruleSearch" placeholder="搜索规则"></div></div>
+              <div style="overflow:auto"><table><thead><tr><th>规则名称</th><th>规则类型</th><th>作用数据表</th><th>最近检测</th><th>异常数</th><th>状态</th></tr></thead><tbody id="ruleBody">
+                <tr><td>地块统一编码唯一性</td><td><span class="tag">唯一性</span></td><td>dwd_land_parcel</td><td>16:20</td><td>0</td><td><span class="status ok">通过</span></td></tr>
+                <tr><td>经营主体证件号码规范</td><td><span class="tag">格式校验</span></td><td>dwd_agri_entity</td><td>16:18</td><td>12</td><td><span class="status warn">需处理</span></td></tr>
+                <tr><td>土壤检测地块关联完整性</td><td><span class="tag">关联校验</span></td><td>dwd_soil_test</td><td>16:15</td><td>35</td><td><span class="status warn">需处理</span></td></tr>
+                <tr><td>监测点经纬度合理区间</td><td><span class="tag">范围校验</span></td><td>dwd_iot_station</td><td>16:12</td><td>3</td><td><span class="status bad">异常</span></td></tr>
+              </tbody></table></div>
+            </div>
+          </div>
+          <div class="subview" id="warehouse-assets">
+            <div class="catalog-grid">
+              <div class="catalog" data-catalog="基础库"><div class="c-ico">▦</div><strong>农业基础库</strong><span>主体、地块、行政区划、农资、农机<br>286 项资源 · 3.2 TB</span></div>
+              <div class="catalog" data-catalog="生产库"><div class="c-ico">♧</div><strong>农业生产主题库</strong><span>气象、土壤、苗情、农事、产量<br>342 项资源 · 5.8 TB</span></div>
+              <div class="catalog" data-catalog="治理库"><div class="c-ico">⌂</div><strong>乡村治理主题库</strong><span>人口、房屋、网格、事件、党建<br>198 项资源 · 1.6 TB</span></div>
+              <div class="catalog" data-catalog="指标库"><div class="c-ico">⌁</div><strong>农业指标库</strong><span>生产、质量、监管、绩效类指标<br>422 项指标 · 96 个模型</span></div>
+            </div>
+            <div class="grid-2" style="margin-top:14px">
+              <div class="card"><div class="card-head"><div><div class="card-title">热门数据资源</div><div class="card-sub">近 30 天访问与申请排行</div></div><button class="btn small" id="applyResource">申请资源</button></div><div style="overflow:auto"><table><thead><tr><th>资源名称</th><th>类型</th><th>更新频率</th><th>调用量</th><th>开放状态</th></tr></thead><tbody>
+                <tr><td>北安市标准地块数据</td><td>数据表</td><td>每日</td><td>8,426</td><td><span class="status ok">有条件开放</span></td></tr><tr><td>农业气象实况服务</td><td>API</td><td>10 分钟</td><td>21,366</td><td><span class="status ok">已开放</span></td></tr>
+                <tr><td>土壤养分检测数据</td><td>文件集</td><td>季度</td><td>5,104</td><td><span class="status warn">申请开放</span></td></tr><tr><td>寒地品种适宜性指标</td><td>API</td><td>年度</td><td>4,886</td><td><span class="status ok">已开放</span></td></tr>
+              </tbody></table></div></div>
+              <div class="card"><div class="card-head"><div><div class="card-title">API 服务运行</div><div class="card-sub">调用趋势与服务健康状态</div></div><span class="status ok">全部可用</span></div><div class="card-body"><div class="chart-wrap"><svg class="chart-svg" viewBox="0 0 520 210" preserveAspectRatio="none">
+                <g><line class="gridline" x1="30" y1="30" x2="500" y2="30"/><line class="gridline" x1="30" y1="80" x2="500" y2="80"/><line class="gridline" x1="30" y1="130" x2="500" y2="130"/><line class="gridline" x1="30" y1="180" x2="500" y2="180"/></g><polyline class="line-blue" points="30,142 95,118 160,131 225,88 290,99 355,54 420,71 500,42"/>
+                <g class="axis-text"><text x="25" y="202">08:00</text><text x="143" y="202">10:00</text><text x="260" y="202">12:00</text><text x="377" y="202">14:00</text><text x="476" y="202">16:00</text></g></svg></div></div></div>
+            </div>
+          </div>
+          <div class="subview" id="warehouse-schedule">
+            <div class="metric-grid">
+              <div class="metric"><div class="metric-head"><span>今日任务</span><i class="metric-ico">◷</i></div><strong>348</strong><div class="metric-foot">计划执行 354 次</div></div>
+              <div class="metric"><div class="metric-head"><span>正在运行</span><i class="metric-ico" style="color:var(--blue)">▶</i></div><strong>18</strong><div class="metric-foot">平均耗时 4m 26s</div></div>
+              <div class="metric"><div class="metric-head"><span>执行成功</span><i class="metric-ico">✓</i></div><strong>321</strong><div class="metric-foot"><span class="up">成功率 98.9%</span></div></div>
+              <div class="metric"><div class="metric-head"><span>异常任务</span><i class="metric-ico" style="color:var(--red)">!</i></div><strong>3</strong><div class="metric-foot"><span class="down">需人工处理</span></div></div>
+            </div>
+            <div class="card"><div class="card-head"><div><div class="card-title">生产作业调度</div><div class="card-sub">可视化编排作业的运行记录</div></div><button class="btn primary small" id="runAllFailed">重跑失败任务</button></div><div style="overflow:auto"><table><thead><tr><th>作业名称</th><th>调度类型</th><th>数据链路</th><th>开始时间</th><th>耗时</th><th>状态</th><th>操作</th></tr></thead><tbody id="scheduleBody">
+              <tr><td>气象站分钟数据入仓</td><td>定时 · 10分钟</td><td>ODS → DWD</td><td>16:20:00</td><td>01:28</td><td><span class="status ok">成功</span></td><td><button class="btn small ghost task-log">日志</button></td></tr>
+              <tr><td>地块综合画像日汇总</td><td>定时 · 每日</td><td>DWD → DWS</td><td>16:18:12</td><td>运行中</td><td><span class="status run">运行中</span></td><td><button class="btn small ghost task-log">详情</button></td></tr>
+              <tr><td>农事作业指标计算</td><td>依赖触发</td><td>DWS → ADS</td><td>16:15:30</td><td>02:46</td><td><span class="status ok">成功</span></td><td><button class="btn small ghost task-log">日志</button></td></tr>
+              <tr class="failed-task"><td>土壤检测历史数据清洗</td><td>手工执行</td><td>ODS → DWD</td><td>16:08:04</td><td>00:36</td><td><span class="status bad">失败</span></td><td><button class="btn small warn retry-schedule">重跑</button></td></tr>
+            </tbody></table></div></div>
+          </div>
+        </section>
+
+        <section class="page" id="page-model">
+          <div class="hero">
+            <div><h1>寒地粮食作物智慧种植决策模型</h1><p>融合积温、无霜期、土壤、历史产量与生产目标，生成可解释的品种、种子处理和育苗方案。</p></div>
+            <div class="hero-actions"><button class="btn" id="modelReport">⤓ 导出推荐报告</button><button class="btn blue" id="modelVersions">版本 v2.6.1</button></div>
+          </div>
+          <div class="model-layout">
+            <aside class="param-panel">
+              <div class="param-head"><h3>决策参数</h3><p>选择地块并调整生产目标</p></div>
+              <div class="form-body">
+                <div class="field"><label><span>目标地块</span><span class="up">数据已就绪</span></label><select id="fieldSelect"><option value="北岗1号地">北岗1号地 · 1,286亩</option><option value="主星2号地">主星2号地 · 936亩</option><option value="赵光3号地">赵光3号地 · 1,542亩</option></select></div>
+                <div class="field"><label>作物类型</label><select id="cropSelect"><option value="大豆">大豆</option><option value="玉米">玉米</option><option value="水稻">水稻</option></select></div>
+                <div class="field"><label><span>目标产量</span><span class="range-val" id="yieldVal">210 kg/亩</span></label><div class="range-row"><input type="range" id="yieldRange" min="160" max="260" value="210"></div></div>
+                <div class="field"><label><span>风险偏好</span><span class="range-val" id="riskVal">稳健</span></label><div class="range-row"><input type="range" id="riskRange" min="1" max="3" value="2"></div></div>
+                <div class="field"><label>优先目标</label><div class="field-check" id="goalChecks"><div class="check active">稳产抗逆</div><div class="check">高产潜力</div><div class="check">蛋白品质</div><div class="check">早熟避灾</div></div></div>
+                <div class="field"><label>播种计划</label><input type="date" id="sowDate" value="2027-05-08" style="width:100%"></div>
+                <button class="btn primary run-btn" id="runModel">✦ 生成决策方案</button>
+              </div>
+            </aside>
+            <div class="model-main">
+              <div class="result-hero">
+                <div class="recommend">
+                  <div class="rec-top"><div><div class="rec-label">首选推荐品种</div><h2 id="bestVariety">黑河 43</h2></div><div class="score"><span id="bestScore">92.6</span><small>/100</small></div></div>
+                  <div class="rec-tags" id="recTags"><span class="tag">早熟</span><span class="tag">耐低温</span><span class="tag">抗倒伏</span><span class="tag">高蛋白</span></div>
+                  <p class="rec-reason" id="recReason">适配北岗1号地有效积温 2,215℃，在相似地块近 5 年平均亩产 208.7kg；对早霜及低温冷害有较好规避能力。</p>
+                </div>
+                <div class="radar-box">
+                  <svg class="radar" viewBox="0 0 260 200"><g transform="translate(130 100)"><polygon points="0,-75 71,-23 44,61 -44,61 -71,-23"/><polygon points="0,-55 52,-17 32,45 -32,45 -52,-17"/><polygon points="0,-35 33,-11 21,28 -21,28 -33,-11"/><line x1="0" y1="0" x2="0" y2="-75" stroke="#2a5345"/><line x1="0" y1="0" x2="71" y2="-23" stroke="#2a5345"/><line x1="0" y1="0" x2="44" y2="61" stroke="#2a5345"/><line x1="0" y1="0" x2="-44" y2="61" stroke="#2a5345"/><line x1="0" y1="0" x2="-71" y2="-23" stroke="#2a5345"/><polygon class="data" id="radarData" points="0,-68 62,-20 36,50 -39,54 -61,-20"/></g><g><text x="119" y="13">熟期适配</text><text x="211" y="91">产量潜力</text><text x="173" y="184">品质表现</text><text x="40" y="184">历史稳定</text><text x="4" y="91">抗逆能力</text></g></svg>
+                </div>
+              </div>
+              <div class="grid-3" style="margin-bottom:14px">
+                <div class="metric"><div class="metric-head"><span>预计亩产</span><i class="metric-ico">穗</i></div><strong id="predictYield">214.8<small style="font-size:12px"> kg</small></strong><div class="metric-foot"><span class="up">较地块均值 +6.4%</span></div></div>
+                <div class="metric"><div class="metric-head"><span>有效积温适配</span><i class="metric-ico" style="color:var(--amber)">温</i></div><strong>97.2<small style="font-size:12px">%</small></strong><div class="metric-foot">成熟余量约 <span class="amber">96℃</span></div></div>
+                <div class="metric"><div class="metric-head"><span>综合风险等级</span><i class="metric-ico" style="color:var(--blue)">盾</i></div><strong id="riskLevel">较低</strong><div class="metric-foot">重点关注 <span class="blue-text">播期低温</span></div></div>
+              </div>
+              <div class="grid-2">
+                <div class="card"><div class="card-head"><div><div class="card-title">候选品种综合评分</div><div class="card-sub">适宜性、产量、风险与品质综合排序</div></div><button class="btn small ghost" id="compareVarieties">对比详情</button></div><div class="card-body" id="rankList"></div></div>
+                <div class="card"><div class="card-head"><div><div class="card-title">决策依据</div><div class="card-sub">模型数据调用与关键影响因子</div></div><span class="status ok">7 类数据完备</span></div><div class="card-body">
+                  <div class="alert-list">
+                    <div class="alert"><i class="alert-ico" style="background:#173d35;color:var(--green)">温</i><div><b>近 10 年有效积温 2,215℃</b><p>目标品种需满足 ≥2,090℃，成熟安全余量充足。</p></div></div>
+                    <div class="alert"><i class="alert-ico" style="background:#173345;color:var(--blue)">土</i><div><b>黑土层 26cm，有机质 4.6%</b><p>土壤肥力等级二级，pH 6.4，适宜大豆生长。</p></div></div>
+                    <div class="alert"><i class="alert-ico">!</i><div><b>5 月上旬存在低温窗口</b><p>建议避开 5 月 3—5 日冷空气过程，适当延后播种。</p></div></div>
+                  </div></div></div>
+              </div>
+              <div class="card" style="margin-top:14px"><div class="card-head"><div><div class="card-title">种子处理与播前建议</div><div class="card-sub">依据批次状态、土壤条件和病虫害风险生成</div></div><button class="btn small" id="seedRecord">记录实际处理</button></div><div class="card-body"><div class="timeline">
+                <div class="stage active"><span class="stage-num">01</span><span class="day">播前 10—12 天</span><b>批次检测</b><p>抽样测定发芽率与含水率，当前批次发芽率 94%，满足播种要求。</p></div>
+                <div class="stage"><span class="stage-num">02</span><span class="day">播前 5—7 天</span><b>晒种精选</b><p>晴天晒种 1—2 天，剔除破损、病斑和小粒种子，避免正午暴晒。</p></div>
+                <div class="stage"><span class="stage-num">03</span><span class="day">播前 1—2 天</span><b>药剂包衣</b><p>按根腐病与地下害虫风险选择复合种衣剂，严格执行推荐配比。</p></div>
+                <div class="stage"><span class="stage-num">04</span><span class="day">计划播期</span><b>适墒播种</b><p>5cm 地温稳定通过 8℃，土壤相对含水量 65%—75% 时作业。</p></div>
+              </div></div></div>
+              <div class="card" style="margin-top:14px"><div class="card-head"><div><div class="card-title">育苗与农事节点</div><div class="card-sub">模型将环境阈值转化为可执行提醒</div></div><span class="status run">动态跟踪</span></div><div style="overflow:auto"><table><thead><tr><th>预计日期</th><th>生育阶段</th><th>环境阈值</th><th>建议措施</th><th>提醒状态</th></tr></thead><tbody>
+                <tr><td>05-08</td><td>播种</td><td>5cm 地温 ≥ 8℃</td><td>土壤墒情适宜时精量播种，深度 3—5cm</td><td><span class="status ok">已规划</span></td></tr>
+                <tr><td>05-16</td><td>出苗</td><td>日均温 ≥ 10℃</td><td>核查出苗率与缺苗断垄，必要时补种</td><td><span class="status run">待监测</span></td></tr>
+                <tr><td>06-05</td><td>苗期管理</td><td>土壤湿度 60%—75%</td><td>检查根腐病与蚜虫，视苗情适时中耕</td><td><span class="status off">未开始</span></td></tr>
+                <tr><td>07-12</td><td>开花结荚</td><td>连续高温 &lt; 3 天</td><td>关注干旱和高温风险，必要时补灌</td><td><span class="status off">未开始</span></td></tr>
+              </tbody></table></div></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal"><div class="modal-head"><h3 id="modalTitle">标题</h3><button class="modal-close" id="modalClose">×</button></div><div class="modal-body" id="modalBody"></div><div class="modal-foot" id="modalFoot"><button class="btn" id="modalCancel">取消</button><button class="btn primary" id="modalConfirm">确认</button></div></div>
+  </div>
+  <div class="toast-wrap" id="toastWrap"></div>
+
+  <script>
+    (function(){
+      var state={
+        page:'share',
+        tasks:[
+          {name:'指挥平台地块数据同步',source:'数智农业指挥平台',mode:'增量 · 每10分钟',count:'12,486 条',time:'16:28:06',status:'运行中',progress:76},
+          {name:'农业经营主体共享交换',source:'政务数据共享区',mode:'增量 · 每小时',count:'2,836 条',time:'16:20:12',status:'正常',progress:100},
+          {name:'视频点位状态同步',source:'视频感知平台',mode:'增量 · 每5分钟',count:'350 条',time:'16:25:30',status:'正常',progress:100},
+          {name:'涉农项目监管数据归集',source:'项目监管系统',mode:'全量 · 每日',count:'8,952 条',time:'15:40:18',status:'待复核',progress:100},
+          {name:'土壤检测历史数据接入',source:'耕地质量系统',mode:'全量 · 手动',count:'64,208 条',time:'14:56:42',status:'正常',progress:100}
+        ],
+        logs:[
+          ['16:30:18','视频点位在线状态','同步 350 条，更新 2 条','成功'],
+          ['16:29:42','气象监测数据','写入 2,864 条实时记录','成功'],
+          ['16:28:06','指挥平台地块数据','增量同步进行中：9,488 / 12,486','运行中'],
+          ['16:27:35','政务主体数据','字段编码映射完成','成功'],
+          ['16:26:12','土壤检测数据','发现 3 条地块编码待匹配','提示']
+        ],
+        varieties:{
+          '大豆':[['黑河 43','早熟 · 抗逆性强',92.6],['北豆 40','稳产 · 高蛋白',89.4],['黑科 59','高产 · 抗倒伏',86.8],['垦豆 94','品质优 · 中早熟',83.7]],
+          '玉米':[['德美亚 3号','早熟 · 耐密植',93.1],['翔玉 998','稳产 · 抗倒伏',89.8],['富民 985','高产 · 耐低温',87.2],['先玉 1219','脱水快 · 抗病',84.6]],
+          '水稻':[['龙粳 31','早熟 · 食味优',91.9],['龙粳 46','稳产 · 抗冷',89.1],['绥粳 18','高产 · 抗倒',86.4],['龙稻 21','优质 · 分蘖强',83.9]]
+        }
+      };
+      function $(s,p){return (p||document).querySelector(s)}
+      function $$(s,p){return Array.prototype.slice.call((p||document).querySelectorAll(s))}
+      function toast(title,text){
+        var el=document.createElement('div');el.className='toast';el.innerHTML='<b>'+title+'</b><span>'+text+'</span>';
+        $('#toastWrap').appendChild(el);setTimeout(function(){el.style.opacity='0';el.style.transform='translateX(20px)';setTimeout(function(){el.remove()},250)},3000)
+      }
+      function openModal(title,body,confirmText,onConfirm){
+        $('#modalTitle').textContent=title;$('#modalBody').innerHTML=body;$('#modalConfirm').textContent=confirmText||'确认';
+        $('#modalBackdrop').classList.add('show');$('#modalConfirm').onclick=function(){if(onConfirm)onConfirm();closeModal()}
+      }
+      function closeModal(){$('#modalBackdrop').classList.remove('show')}
+      $('#modalClose').onclick=closeModal;$('#modalCancel').onclick=closeModal;
+      $('#modalBackdrop').addEventListener('click',function(e){if(e.target===this)closeModal()});
+      function switchPage(name){
+        state.page=name;$$('.page').forEach(function(x){x.classList.remove('active')});$('#page-'+name).classList.add('active');
+        $$('.nav-item[data-page]').forEach(function(x){x.classList.toggle('active',x.dataset.page===name)});
+        var names={share:'数据共享与系统集成',warehouse:'标准化数据仓库',model:'智慧种植决策模型'};
+        $('#crumb').textContent=names[name];location.hash=name;$('#sidebar').classList.remove('open');window.scrollTo(0,0)
+      }
+      $$('.nav-item[data-page]').forEach(function(x){x.onclick=function(){switchPage(x.dataset.page)}});
+      $('#mobileMenu').onclick=function(){$('#sidebar').classList.toggle('open')};
+      function renderTasks(){
+        var q=$('#shareSearch').value.toLowerCase(),st=$('#shareStatus').value,arr=state.tasks.filter(function(t){return(!q||(t.name+t.source).toLowerCase().indexOf(q)>-1)&&(!st||t.status===st)});
+        $('#shareNoResults').style.display=arr.length?'none':'block';
+        $('#shareTaskBody').innerHTML=arr.map(function(t,i){
+          var cls=t.status==='正常'?'ok':t.status==='运行中'?'run':'warn';
+          return '<tr><td><b>'+t.name+'</b></td><td>'+t.source+'</td><td>'+t.mode+'</td><td>'+t.count+'</td><td>'+t.time+'</td><td><span class="status '+cls+'">'+t.status+'</span>'+(t.status==='运行中'?'<div class="progress"><i style="--p:'+t.progress+'%"></i></div>':'')+'</td><td><button class="btn small ghost view-task" data-name="'+t.name+'">详情</button> '+(t.status==='待复核'?'<button class="btn small warn retry-task" data-name="'+t.name+'">重试</button>':'')+'</td></tr>'
+        }).join('');
+        $$('.view-task').forEach(function(b){b.onclick=function(){openModal('同步任务详情','<div class="alert-list"><div class="alert"><i class="alert-ico" style="background:#173d35;color:var(--green)">✓</i><div><b>'+b.dataset.name+'</b><p>任务配置、字段映射、执行周期与最近 10 次运行记录均可追溯。</p></div></div></div><table style="margin-top:14px"><tr><td>最近执行</td><td>2026-10-29 16:28:06</td></tr><tr><td>目标位置</td><td>ODS / 农业生产主题</td></tr><tr><td>失败策略</td><td>间隔 3 分钟自动重试 3 次</td></tr></table>','关闭')}});
+        $$('.retry-task').forEach(function(b){b.onclick=function(){var t=state.tasks.find(function(x){return x.name===b.dataset.name});t.status='运行中';t.progress=12;renderTasks();toast('任务已重新执行','已进入同步队列，预计 2 分钟完成');simulateTask(t)}});
+      }
+      function simulateTask(t){
+        var timer=setInterval(function(){t.progress=Math.min(100,t.progress+Math.ceil(Math.random()*18));renderTasks();if(t.progress>=100){clearInterval(timer);t.status='正常';t.time=new Date().toLocaleTimeString('zh-CN',{hour12:false});renderTasks();toast('同步任务完成',t.name+' 已成功交换 '+t.count)}},700)
+      }
+      function renderLogs(){
+        $('#shareLogs').innerHTML=state.logs.map(function(l){var c=l[3]==='成功'?'ok':l[3]==='运行中'?'run':'warn';return '<div class="log"><time>'+l[0]+'</time><div><b>'+l[1]+'</b><p>'+l[2]+'</p></div><span class="status '+c+'">'+l[3]+'</span></div>'}).join('')
+      }
+      $('#shareSearch').oninput=renderTasks;$('#shareStatus').onchange=renderTasks;
+      $('#clearLogs').onclick=function(){state.logs=[];renderLogs();toast('日志视图已清空','仅清空当前演示视图，不影响审计记录')};
+      $$('.source-node[data-source]').forEach(function(n){n.onclick=function(){$$('.source-node[data-source]').forEach(function(x){x.classList.remove('active')});n.classList.add('active');$('#hubStatus').textContent=n.dataset.source+'同步中';state.logs.unshift([new Date().toLocaleTimeString('zh-CN',{hour12:false}),n.dataset.source,'手动检查连接与字段映射','成功']);renderLogs();toast('数据源已切换',n.dataset.source+' 当前连接正常')}});
+      $('#newInterface').onclick=function(){openModal('新建数据接口','<div class="form-grid"><div class="form-item"><label>接口名称</label><input id="newApiName" type="text" placeholder="例如：农机作业数据查询"></div><div class="form-item"><label>请求方式</label><select><option>GET</option><option>POST</option><option>PUT</option></select></div><div class="form-item full"><label>接口地址</label><input type="text" value="https://api.beian-agri.local/v1/"></div><div class="form-item"><label>认证方式</label><select><option>AppKey + AppSecret</option><option>OAuth 2.0</option><option>IP 白名单</option></select></div><div class="form-item"><label>调用频率</label><select><option>60 次 / 分钟</option><option>300 次 / 分钟</option><option>不限</option></select></div></div>','测试并保存',function(){var name=$('#newApiName')&&$('#newApiName').value||'未命名接口';$('#apiCount').textContent='127';toast('接口创建成功',name+' 连通性测试通过并已保存')})};
+      $('#shareReport').onclick=function(){toast('报告已生成','数据集成运行报告（演示版）已进入下载队列')};
+      function switchWarehouse(view){
+        $$('.subview').forEach(function(x){x.classList.remove('active')});$('#'+view).classList.add('active');
+        $$('.section-tab').forEach(function(x){x.classList.toggle('active',x.dataset.view===view)});window.scrollTo({top:0,behavior:'smooth'})
+      }
+      $$('.section-tab').forEach(function(x){x.onclick=function(){switchWarehouse(x.dataset.view)}});
+      $$('[data-view-jump]').forEach(function(x){x.onclick=function(){switchWarehouse(x.dataset.viewJump)}});
+      $('#warehouseScan').onclick=function(){switchWarehouse('warehouse-govern');setTimeout(function(){$('#runQuality').click()},250)};
+      $('#runQuality').onclick=function(){var b=this;b.disabled=true;b.textContent='检测中…';$('#qualityScore').closest('.quality-ring').classList.add('skeleton');setTimeout(function(){b.disabled=false;b.textContent='立即检测';$('#qualityScore').textContent='97.1';$('#qualityScore').closest('.quality-ring').classList.remove('skeleton');toast('质量检测完成','扫描 1,248 张表，发现 1,284 条待治理记录')},1800)};
+      $('#lineageDetail').onclick=function(){openModal('完整数据血缘','<div class="lineage" style="min-height:360px"><svg viewBox="0 0 900 360" preserveAspectRatio="none"><path d="M150 65 C280 65 250 160 355 170"/><path d="M150 285 C285 285 250 185 355 175"/><path d="M500 175 C630 175 625 65 750 65"/><path d="M500 180 C630 180 625 285 750 285"/></svg><div class="ln-node ln1"><b>ods_land_parcel</b><small>来源：确权系统</small></div><div class="ln-node ln2"><b>ods_soil_test</b><small>来源：耕地质量系统</small></div><div class="ln-node ln3" style="top:42%"><b>dws_parcel_profile</b><small>加工：每日 02:00</small></div><div class="ln-node ln4"><b>ads_command_map</b><small>影响：地图专题</small></div><div class="ln-node ln5"><b>model_variety_input</b><small>影响：推荐模型</small></div></div>','关闭')};
+      $('#ruleSearch').oninput=function(){var q=this.value.toLowerCase();$$('#ruleBody tr').forEach(function(tr){tr.style.display=tr.textContent.toLowerCase().indexOf(q)>-1?'':'none'})};
+      $('#newResource').onclick=function(){openModal('新增数据资源','<div class="form-grid"><div class="form-item"><label>资源名称</label><input type="text" placeholder="请输入资源名称"></div><div class="form-item"><label>资源类型</label><select><option>数据库表</option><option>API</option><option>文件</option></select></div><div class="form-item"><label>所属目录</label><select><option>农业基础库</option><option>农业生产主题库</option><option>乡村治理主题库</option></select></div><div class="form-item"><label>共享方式</label><select><option>有条件共享</option><option>无条件共享</option><option>不予共享</option></select></div></div>','保存资源',function(){toast('资源已保存','已进入目录编目待发布清单')})};
+      $$('.catalog').forEach(function(x){x.onclick=function(){openModal(x.dataset.catalog+'资源目录','<div class="toolbar" style="margin-bottom:12px"><div class="search" style="flex:1">⌕<input placeholder="搜索资源名称、标签或字段"></div><select><option>全部类型</option><option>数据表</option><option>API</option></select></div><table><thead><tr><th>资源名称</th><th>资源类型</th><th>更新频率</th><th>状态</th></tr></thead><tbody><tr><td>标准地块基础信息</td><td>数据表</td><td>每日</td><td><span class="status ok">已发布</span></td></tr><tr><td>作物生产过程档案</td><td>数据表</td><td>实时</td><td><span class="status ok">已发布</span></td></tr><tr><td>农业指标查询服务</td><td>API</td><td>实时</td><td><span class="status run">运行中</span></td></tr></tbody></table>','关闭')}});
+      $('#applyResource').onclick=function(){openModal('数据资源申请','<div class="form-grid"><div class="form-item full"><label>申请资源</label><select><option>土壤养分检测数据</option><option>北安市标准地块数据</option></select></div><div class="form-item"><label>使用应用</label><select><option>智慧种植决策模型</option><option>领导驾驶舱</option></select></div><div class="form-item"><label>使用期限</label><select><option>12 个月</option><option>6 个月</option><option>长期</option></select></div><div class="form-item full"><label>申请用途</label><input type="text" value="用于地块品种适宜性分析与推荐"></div></div>','提交申请',function(){toast('申请已提交','流程编号 SQ-20261028-036，等待数据管理员审批')})};
+      $$('.task-log').forEach(function(x){x.onclick=function(){openModal('任务运行日志','<pre style="color:#9fc5b7;white-space:pre-wrap;line-height:1.8;background:#0a1915;padding:14px;border-radius:8px">16:20:00 [INFO] 开始执行任务\n16:20:05 [INFO] 读取源端增量 2,864 条\n16:20:32 [INFO] 数据标准校验通过 2,861 条\n16:21:06 [WARN] 3 条记录进入异常主题库\n16:21:28 [INFO] 任务执行完成</pre>','关闭')}});
+      function retryFailed(tr){var status=$('.status',tr);status.className='status run';status.textContent='运行中';toast('任务已重跑','正在重新执行数据清洗作业');setTimeout(function(){status.className='status ok';status.textContent='成功';tr.classList.remove('failed-task');toast('重跑成功','土壤检测历史数据已完成清洗入仓')},2200)}
+      $$('.retry-schedule').forEach(function(x){x.onclick=function(){retryFailed(x.closest('tr'))}});
+      $('#runAllFailed').onclick=function(){var arr=$$('.failed-task');if(!arr.length){toast('没有失败任务','当前全部调度任务状态正常');return}arr.forEach(retryFailed)};
+      function renderRanks(){
+        var crop=$('#cropSelect').value,list=state.varieties[crop];$('#rankList').innerHTML=list.map(function(v,i){return '<div class="rank-row"><span class="rank '+(i===0?'first':'')+'">'+(i+1)+'</span><div class="variety"><b>'+v[0]+'</b><span>'+v[1]+'</span></div><div class="scorebar"><i style="--w:'+v[2]+'%"></i></div><div class="rank-score">'+v[2]+'</div></div>'}).join('');
+        $('#bestVariety').textContent=list[0][0];$('#bestScore').textContent=list[0][2]
+      }
+      $('#yieldRange').oninput=function(){$('#yieldVal').textContent=this.value+' kg/亩'};
+      $('#riskRange').oninput=function(){var a=['保守','稳健','进取'];$('#riskVal').textContent=a[this.value-1]};
+      $$('#goalChecks .check').forEach(function(x){x.onclick=function(){x.classList.toggle('active')}});
+      $('#cropSelect').onchange=function(){renderRanks();var crop=this.value,txt=crop==='大豆'?'适配黑土区寒地早熟型品种，重点兼顾蛋白品质与低温抗性。':crop==='玉米'?'适配第四积温带，重点关注成熟脱水与抗倒伏能力。':'适配寒地粳稻生产，重点关注食味品质与障碍型冷害。';$('#recReason').textContent=txt;toast('作物模型已切换','已加载'+crop+'品种库与寒地环境参数')};
+      $('#fieldSelect').onchange=function(){toast('地块数据已加载',this.value+'的土壤、气象及历史产量数据已就绪')};
+      $('#runModel').onclick=function(){
+        var b=this,crop=$('#cropSelect').value,field=$('#fieldSelect').value,target=Number($('#yieldRange').value),risk=Number($('#riskRange').value);
+        b.disabled=true;b.textContent='模型计算中…';$$('.model-main .card,.result-hero').forEach(function(x){x.classList.add('skeleton')});
+        setTimeout(function(){var base=state.varieties[crop][0][2],score=Math.min(97,(base+(risk-2)*.7+(target<220?.4:-.6))).toFixed(1);
+          $('#bestScore').textContent=score;$('#predictYield').innerHTML=(target*(1.015+Math.random()*.025)).toFixed(1)+'<small style="font-size:12px"> kg</small>';
+          $('#riskLevel').textContent=risk===1?'低':risk===2?'较低':'中等';$('#recReason').textContent='已综合'+field+'的土壤地力、近 10 年气象、历史产量与当前生产目标。推荐方案满足熟期约束，并对低温、早霜及倒伏风险留有安全余量。';
+          $('#radarData').setAttribute('points',risk===3?'0,-71 68,-22 40,56 -35,48 -53,-17':'0,-66 61,-20 37,52 -41,57 -64,-21');
+          b.disabled=false;b.textContent='✦ 重新生成决策方案';$$('.skeleton').forEach(function(x){x.classList.remove('skeleton')});toast('决策方案生成完成','模型 v2.6.1 用时 1.82 秒，已形成可解释推荐结果')
+        },1900)
+      };
+      $('#compareVarieties').onclick=function(){var list=state.varieties[$('#cropSelect').value];openModal('候选品种对比','<table><thead><tr><th>品种</th><th>熟期适配</th><th>产量潜力</th><th>抗逆能力</th><th>综合分</th></tr></thead><tbody>'+list.map(function(v,i){return '<tr><td><b>'+v[0]+'</b></td><td>'+(96-i*3)+'%</td><td>'+(91-i*2)+'%</td><td>'+(94-i*4)+'%</td><td class="up"><b>'+v[2]+'</b></td></tr>'}).join('')+'</tbody></table>','关闭')};
+      $('#seedRecord').onclick=function(){openModal('记录实际种子处理','<div class="form-grid"><div class="form-item"><label>种子批次</label><input value="2027-DD-BA-018"></div><div class="form-item"><label>处理方式</label><select><option>复合种衣剂包衣</option><option>晒种精选</option><option>浸种催芽</option></select></div><div class="form-item"><label>作业日期</label><input type="date" value="2027-05-06"></div><div class="form-item"><label>执行人员</label><input value="王建国"></div><div class="form-item full"><label>质量结果</label><select><option>合格</option><option>需复检</option></select></div></div>','保存记录',function(){toast('处理记录已保存','已归入种子批次 2027-DD-BA-018 追溯档案')})};
+      $('#modelReport').onclick=function(){toast('推荐报告已生成','含品种排序、决策依据、风险提示和作业建议')};
+      $('#modelVersions').onclick=function(){openModal('模型版本管理','<table><thead><tr><th>版本</th><th>发布时间</th><th>更新说明</th><th>状态</th></tr></thead><tbody><tr><td><b>v2.6.1</b></td><td>2026-09-18</td><td>更新 2025 年历史产量样本</td><td><span class="status ok">当前</span></td></tr><tr><td>v2.5.3</td><td>2026-04-02</td><td>优化寒地早霜风险权重</td><td><span class="status off">历史</span></td></tr><tr><td>v2.4.0</td><td>2025-11-26</td><td>新增模型解释模块</td><td><span class="status off">历史</span></td></tr></tbody></table>','关闭')};
+      $$('[data-action="message"]').forEach(function(x){x.onclick=function(){openModal('任务与告警','<div class="alert-list"><div class="alert"><i class="alert-ico">!</i><div><b>涉农项目监管数据待复核</b><p>同步任务已完成，发现 12 条机构编码待人工确认。</p></div></div><div class="alert"><i class="alert-ico" style="background:#3f2630;color:var(--red)">!</i><div><b>土壤历史数据清洗失败</b><p>源端字段类型变更，请检查清洗规则后重跑。</p></div></div><div class="alert"><i class="alert-ico" style="background:#173345;color:var(--blue)">温</i><div><b>2027 春播低温窗口提示</b><p>5 月上旬存在阶段性低温概率，建议关注临近预报。</p></div></div></div>','我知道了')}});
+      $$('[data-action="help"]').forEach(function(x){x.onclick=function(){openModal('演示操作指南','<div class="alert-list"><div class="alert"><i class="alert-ico" style="background:#173d35;color:var(--green)">1</i><div><b>数据共享</b><p>切换左侧数据源、搜索同步任务、重试待复核任务或新建接口。</p></div></div><div class="alert"><i class="alert-ico" style="background:#173345;color:var(--blue)">2</i><div><b>标准数仓</b><p>在四个页签间切换，运行质量巡检、查看血缘、申请资源并重跑调度。</p></div></div><div class="alert"><i class="alert-ico">3</i><div><b>种植模型</b><p>选择地块与作物，调整目标参数后生成方案，查看推荐解释与作业建议。</p></div></div></div>','开始演示')}});
+      $('#refreshBtn').onclick=function(){this.textContent='⟳';var b=this;setTimeout(function(){b.textContent='↻';var n=(286.4+Math.random()*2).toFixed(1);$('#exchangeNum').innerHTML=n+'<small style="font-size:12px"> 万条</small>';toast('数据已刷新','三套子系统仿真数据已更新')},700)};
+      function tick(){var d=new Date();$('#clock').textContent=d.toLocaleDateString('zh-CN').replace(/\//g,'-')+' '+d.toLocaleTimeString('zh-CN',{hour12:false})}setInterval(tick,1000);tick();
+      renderTasks();renderLogs();renderRanks();
+      state.page='share';
+    })();
+  </script>
+</body>
+</html>
