@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>模型计算｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link active" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>模型基础框架</span><span>/</span><b>模型计算</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>模型计算</h1><p>展示输入校验、数据调用、规则执行、评分计算与报告生成全过程及耗时。</p></div><div class="actions"><button class="btn primary" data-action="run-compute">▶ 开始计算</button></div></div>
+      
+<div class="grid-2">
+  <section class="card"><div class="card-head"><div><div class="card-title">计算任务参数</div><div class="card-sub">单次决策场景</div></div><span class="tag">模型 v2.6.1</span></div><div class="card-body">
+    <div class="form-grid"><div class="form-item"><label>目标地块</label><select><option>北岗1号地 · 1,286亩</option><option>主星2号地 · 936亩</option></select></div><div class="form-item"><label>作物类型</label><select><option>大豆</option><option>玉米</option></select></div><div class="form-item"><label>目标产量</label><input value="210 kg/亩"></div><div class="form-item"><label>风险偏好</label><select><option>稳健</option><option>保守</option><option>进取</option></select></div><div class="form-item full"><label>优先目标</label><select><option>稳产抗逆</option><option>高产潜力</option><option>蛋白品质</option></select></div></div>
+  </div></section>
+  <section class="card"><div class="card-head"><div><div class="card-title">运行监控</div><div class="card-sub">过程、进度与耗时</div></div><span class="status run">等待执行</span></div><div class="card-body">
+    <div class="pipeline"><div class="pipe-node"><b>参数校验</b><small>输入完整性</small></div><div class="pipe-node"><b>数据调用</b><small>7 类数据</small></div><div class="pipe-node"><b>规则过滤</b><small>12 条规则</small></div><div class="pipe-node"><b>综合评分</b><small>4 类指标</small></div><div class="pipe-node"><b>结果输出</b><small>报告与解释</small></div></div>
+    <div style="margin-top:22px"><div class="progress"><i id="computeProgress" style="--p:0%"></i></div><p id="computeStage" style="color:#83bdb9">等待开始计算</p></div>
+  </div></section>
+</div>
+<section class="card" id="computeResult" style="margin-top:14px;display:none"><div class="card-head"><div><div class="card-title">计算结果</div><div class="card-sub">完成耗时 1.86 秒</div></div><span class="status ok">计算成功</span></div><div class="card-body"><div class="grid-4"><div class="metric"><div class="metric-label">推荐品种</div><strong>黑河 43</strong><small>首选方案</small></div><div class="metric"><div class="metric-label">综合评分</div><strong class="yellow">92.6</strong><small>/100</small></div><div class="metric"><div class="metric-label">预计亩产</div><strong>214.8kg</strong><small class="up">+6.4%</small></div><div class="metric"><div class="metric-label">风险等级</div><strong>较低</strong><small>关注播期低温</small></div></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

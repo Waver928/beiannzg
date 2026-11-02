@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>地块适配指标与寒地环境｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>品种筛选决策</span><span>/</span><b>适配指标与环境</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>地块适配指标与寒地环境</h1><p>读取地块条件、寒地参数和历史产量，形成品种推荐的完整输入依据。</p></div><div class="actions"><select><option>北岗1号地</option><option>主星2号地</option></select></div></div>
+      
+<div class="tabs" data-tabs><button class="tab active" data-target="land">地块适配指标</button><button class="tab" data-target="cold">寒地环境参数</button><button class="tab" data-target="yield">历史产量参考</button></div>
+<div data-tab-panel="land">
+  <div class="grid-4"><div class="metric"><div class="metric-label">土壤地力</div><strong>二级</strong><small>有机质 4.6%</small></div><div class="metric"><div class="metric-label">土壤 pH</div><strong>6.4</strong><small>适宜范围</small></div><div class="metric"><div class="metric-label">排水能力</div><strong>良好</strong><small>地势平缓</small></div><div class="metric"><div class="metric-label">历史连作</div><strong>1 年</strong><small class="yellow">需关注轮作</small></div></div>
+</div>
+<div data-tab-panel="cold" style="display:none">
+  <div class="grid-4"><div class="metric"><div class="metric-label">有效积温</div><strong>2,215℃</strong><small>10年均值</small></div><div class="metric"><div class="metric-label">无霜期</div><strong>118天</strong><small>波动 ±6天</small></div><div class="metric"><div class="metric-label">生育期降水</div><strong>426mm</strong><small>多年均值</small></div><div class="metric"><div class="metric-label">早霜风险</div><strong class="yellow">中低</strong><small>9月18日后</small></div></div>
+</div>
+<div data-tab-panel="yield" style="display:none">
+  <section class="card"><div class="card-head"><div><div class="card-title">相似地块历史产量</div><div class="card-sub">近 5 年候选品种稳定性</div></div></div><div class="card-body"><svg class="chart" viewBox="0 0 620 230" preserveAspectRatio="none"><line class="gridline" x1="35" y1="200" x2="600" y2="200"/><polyline class="line" points="40,148 175,112 310,126 445,72 590,88"/><polyline class="line2" points="40,167 175,139 310,151 445,102 590,119"/><g class="axis"><text x="35" y="220">2022</text><text x="168" y="220">2023</text><text x="303" y="220">2024</text><text x="438" y="220">2025</text><text x="575" y="220">2026</text></g></svg></div></section>
+</div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

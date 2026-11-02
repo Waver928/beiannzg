@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>种子处理方案｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>种子处理决策</span><span>/</span><b>处理方案</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>种子处理方案</h1><p>录入种子状态，生成播前处理、药剂包衣、风险提示和操作要点。</p></div><div class="actions"><button class="btn primary" data-action="generate-seed">生成处理方案</button></div></div>
+      
+<div class="grid-2">
+ <section class="card"><div class="card-head"><div><div class="card-title">种子状态录入</div><div class="card-sub">批次检测结果</div></div></div><div class="card-body"><div class="form-grid"><div class="form-item"><label>种子批次</label><input value="2027-DD-BA-018"></div><div class="form-item"><label>品种</label><select><option>黑河 43</option><option>北豆 40</option></select></div><div class="form-item"><label>发芽率</label><input value="94%"></div><div class="form-item"><label>含水率</label><input value="12.8%"></div><div class="form-item"><label>包衣状态</label><select><option>未包衣</option><option>已包衣</option></select></div><div class="form-item"><label>检测结果</label><select><option>合格</option><option>需复检</option></select></div></div></div></section>
+ <section class="card"><div class="card-head"><div><div class="card-title">环境与风险条件</div><div class="card-sub">土壤、播期和病虫害风险</div></div></div><div class="card-body"><div class="form-grid"><div class="form-item"><label>计划播期</label><input type="date" value="2027-05-08"></div><div class="form-item"><label>5cm地温</label><input value="8.6℃"></div><div class="form-item"><label>土壤墒情</label><input value="68%"></div><div class="form-item"><label>主要风险</label><select><option>根腐病中风险</option><option>地下害虫高风险</option></select></div></div></div></section>
+</div>
+<section class="card" id="seedPlan" style="margin-top:14px;display:none"><div class="card-head"><div><div class="card-title">生成的种子处理方案</div><div class="card-sub">参数库与风险规则综合结果</div></div><span class="status ok">方案可执行</span></div><div class="card-body"><div class="stepper"><div class="step active"><span class="step-num">01</span><b>晒种精选</b><p>晴天晒种1—2天，剔除破损和病斑种子。</p></div><div class="step"><span class="step-num">02</span><b>药剂与包衣</b><p>使用复合种衣剂，推荐用量为种子量0.3%。</p></div><div class="step"><span class="step-num">03</span><b>风险提示</b><p class="yellow">避免低温高湿条件下立即播种，防范药害。</p></div><div class="step"><span class="step-num">04</span><b>质量检查</b><p>包衣均匀率≥95%，阴干后装袋待播。</p></div></div><h3>操作要点</h3><p>作业人员佩戴防护用品；严格按标签比例配制；包衣后在通风阴凉处晾干；剩余药液按规范处置。</p></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

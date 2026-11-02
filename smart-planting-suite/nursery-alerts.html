@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>异常提醒｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>育苗管理决策</span><span>/</span><b>异常提醒</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>异常提醒</h1><p>对低温、高湿、徒长、缺苗和病害风险生成提醒与处置建议。</p></div><div class="actions"><button class="btn" data-action="export" data-file="异常提醒台账已导出">导出台账</button></div></div>
+      <div class="metrics"><div class="metric"><div class="metric-label">今日提醒</div><strong>6</strong><small>较昨日 -2</small></div><div class="metric"><div class="metric-label">高风险</div><strong class="red">1</strong><small>需立即处置</small></div><div class="metric"><div class="metric-label">待确认</div><strong class="yellow">2</strong><small>等待管理员确认</small></div><div class="metric"><div class="metric-label">按时处置率</div><strong>96.8%</strong><small class="up">运行良好</small></div></div><section class="card"><div class="card-head"><div><div class="card-title">异常提醒列表</div><div class="card-sub">提醒、处置建议、确认和状态跟踪</div></div><div class="search">⌕<input data-filter-table="alertTable" placeholder="搜索提醒"></div></div><div class="card-body"><div style="overflow:auto"><table id="alertTable"><thead><tr><th>提醒编号</th><th>育苗批次</th><th>异常类型</th><th>监测值</th><th>处置建议</th><th>等级</th><th>状态</th><th>操作</th></tr></thead><tbody><tr><td>ALM-20271102-036</td><td>YM-2027-006</td><td>空气湿度过高</td><td>82%，持续 45 分钟</td><td>通风降湿，检查苗床积水</td><td>高</td><td><span class='status warn'>待确认</span></td><td><button class='btn small warn' data-action='ack-alert'>确认</button></td></tr><tr><td>ALM-20271102-035</td><td>YM-2027-003</td><td>出苗率偏低</td><td>86%，低于阈值 90%</td><td>核查种子活力与播种深度</td><td>中</td><td><span class='status warn'>待确认</span></td><td><button class='btn small warn' data-action='ack-alert'>确认</button></td></tr><tr><td>ALM-20271102-032</td><td>YM-2027-004</td><td>疑似徒长</td><td>株高增长过快</td><td>降夜温、增加通风和光照</td><td>中</td><td><span class='status ok'>处理中</span></td><td></td></tr></tbody></table></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

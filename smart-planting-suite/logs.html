@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>运行日志｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link active" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>模型基础框架</span><span>/</span><b>运行日志</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>运行日志</h1><p>记录模型调用时间、输入摘要、输出结果、执行耗时和异常信息。</p></div><div class="actions"><button class="btn" data-action="export" data-file="运行日志已导出">导出日志</button></div></div>
+      <div class="metrics"><div class="metric"><div class="metric-label">今日调用</div><strong>1,286</strong><small>累计 48.6 万次</small></div><div class="metric"><div class="metric-label">成功率</div><strong>99.4%</strong><small class="up">稳定</small></div><div class="metric"><div class="metric-label">平均耗时</div><strong>1.12s</strong><small>P95 2.86s</small></div><div class="metric"><div class="metric-label">异常调用</div><strong class="red">8</strong><small>已自动重试 6 次</small></div></div><section class="card"><div class="card-head"><div><div class="card-title">模型运行记录</div><div class="card-sub">支持按模型、状态、时间和地块查询</div></div><div class="search">⌕<input data-filter-table="logTable" placeholder="搜索日志"></div></div><div class="card-body"><div style="overflow:auto"><table id="logTable"><thead><tr><th>运行编号</th><th>模型</th><th>输入摘要</th><th>输出摘要</th><th>耗时</th><th>调用时间</th><th>状态</th><th>操作</th></tr></thead><tbody><tr><td>RUN-20261102-1286</td><td>品种筛选模型</td><td>北岗1号地</td><td>黑河43 / 92.6</td><td>1.86s</td><td>2026-11-02 10:42:18</td><td><span class='status ok'>成功</span></td><td><button class='btn small' data-action='view-log'>详情</button></td></tr><tr><td>RUN-20261102-1285</td><td>种子处理模型</td><td>批次 DD-018</td><td>包衣处理方案</td><td>0.82s</td><td>2026-11-02 10:38:42</td><td><span class='status ok'>成功</span></td><td><button class='btn small' data-action='view-log'>详情</button></td></tr><tr><td>RUN-20261102-1284</td><td>育苗管理模型</td><td>批次 YM-006</td><td>高湿风险提醒</td><td>0.64s</td><td>2026-11-02 10:35:16</td><td><span class='status warn'>有提醒</span></td><td><button class='btn small' data-action='view-log'>详情</button></td></tr><tr><td>RUN-20261102-1283</td><td>品种筛选模型</td><td>主星2号地</td><td>—</td><td>0.23s</td><td>2026-11-02 10:31:05</td><td><span class='status bad'>失败</span></td><td><button class='btn small' data-action='view-log'>详情</button></td></tr></tbody></table></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

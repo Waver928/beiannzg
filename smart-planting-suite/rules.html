@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>规则引擎｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link active" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>模型基础框架</span><span>/</span><b>规则引擎</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>规则引擎</h1><p>配置模型前置过滤、权重调整、风险降级和结果约束，支持命中模拟。</p></div><div class="actions"><button class="btn" data-action="simulate-rules">命中模拟</button><button class="btn primary" data-action="save-rules">保存规则</button></div></div>
+      
+<div class="grid-2">
+  <section class="card"><div class="card-head"><div><div class="card-title">规则集配置</div><div class="card-sub">大豆品种筛选规则集 v2.4</div></div><span class="status warn">草稿</span></div><div class="card-body">
+    <div class="rule-row"><b>熟期硬约束</b><span>有效积温</span><span>品种需积温 ≤ 地块积温 - 80℃</span><span>优先级 1</span><i class="switch on"></i></div>
+    <div class="rule-row"><b>区域审定约束</b><span>审定区域</span><span>必须包含黑龙江对应积温带</span><span>优先级 2</span><i class="switch on"></i></div>
+    <div class="rule-row"><b>早霜风险降权</b><span>灾害风险</span><span>中风险 -3%，高风险 -8%</span><span>优先级 3</span><i class="switch on"></i></div>
+    <div class="rule-row"><b>高蛋白偏好</b><span>品质指标</span><span>蛋白 ≥ 40% 时加权 5%</span><span>优先级 4</span><i class="switch"></i></div>
+  </div></section>
+  <section class="card"><div class="card-head"><div><div class="card-title">评分权重</div><div class="card-sub">权重总计 100%</div></div><span class="status ok">校验通过</span></div><div class="card-body">
+    <div class="form-item"><label><span>熟期适配</span><b>30%</b></label><input type="range" min="0" max="50" value="30" style="width:100%"></div>
+    <div class="form-item" style="margin-top:16px"><label><span>产量潜力</span><b>25%</b></label><input type="range" min="0" max="50" value="25" style="width:100%"></div>
+    <div class="form-item" style="margin-top:16px"><label><span>抗逆能力</span><b>25%</b></label><input type="range" min="0" max="50" value="25" style="width:100%"></div>
+    <div class="form-item" style="margin-top:16px"><label><span>品质表现</span><b>20%</b></label><input type="range" min="0" max="50" value="20" style="width:100%"></div>
+  </div></section>
+</div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>数据调用｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link active" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>模型基础框架</span><span>/</span><b>数据调用</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>数据调用</h1><p>按模型输入要求调用气象、土壤、地块、品种、历史产量和生产过程数据。</p></div><div class="actions"><button class="btn" data-action="export" data-file="模型输入数据快照已生成">导出数据快照</button></div></div>
+      <div class="metrics"><div class="metric"><div class="metric-label">数据源</div><strong>7</strong><small>全部已授权</small></div><div class="metric"><div class="metric-label">输入字段</div><strong>86</strong><small>必填 64 项</small></div><div class="metric"><div class="metric-label">平均读取耗时</div><strong>168ms</strong><small class="up">正常</small></div><div class="metric"><div class="metric-label">数据完整率</div><strong>98.7%</strong><small>缺失字段 2 项</small></div></div><section class="card"><div class="card-head"><div><div class="card-title">模型输入数据源</div><div class="card-sub">展示数据调用来源、字段量、更新时间与状态</div></div><div class="search">⌕<input data-filter-table="dataCallTable" placeholder="搜索数据源"></div></div><div class="card-body"><div style="overflow:auto"><table id="dataCallTable"><thead><tr><th>数据类别</th><th>来源系统</th><th>数据规模</th><th>最近调用</th><th>状态</th></tr></thead><tbody><tr><td>气象实况与预报</td><td>气象数据服务</td><td>18项</td><td>2026-11-02 10:42</td><td><span class='status ok'>正常</span></td></tr><tr><td>地块基础与土壤</td><td>标准化数据仓库</td><td>36项</td><td>2026-11-02 10:42</td><td><span class='status ok'>正常</span></td></tr><tr><td>品种资源库</td><td>模型资源中心</td><td>326条</td><td>2026-11-02 10:42</td><td><span class='status ok'>正常</span></td></tr><tr><td>历史产量样本</td><td>农业生产主题库</td><td>12,648条</td><td>2026-11-02 10:41</td><td><span class='status ok'>正常</span></td></tr><tr><td>生产过程数据</td><td>智慧农场系统</td><td>8类</td><td>2026-11-02 10:40</td><td><span class='status warn'>延迟 8s</span></td></tr></tbody></table></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

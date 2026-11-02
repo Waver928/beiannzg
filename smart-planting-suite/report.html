@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>推荐报告｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>品种筛选决策</span><span>/</span><b>推荐报告</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>推荐报告</h1><p>输出推荐品种、适宜地块、主要依据、风险提示和备选方案，支持打印导出。</p></div><div class="actions"><button class="btn" onclick="window.print()">打印</button><button class="btn primary" data-action="export" data-file="品种推荐报告已生成">导出报告</button></div></div>
+      
+<div class="grid-2">
+ <section class="card"><div class="card-head"><div><div class="card-title">北岗1号地大豆品种推荐报告</div><div class="card-sub">报告编号 RPT-20261102-036 · 模型 v2.6.1</div></div><span class="status ok">已生成</span></div><div class="card-body">
+   <h2 style="margin-top:0">首选：黑河 43 <span class="score">92.6</span></h2><p>适配地块有效积温 2,215℃，相似区域近 5 年平均亩产 208.7kg，对早霜及低温冷害具有较好规避能力。</p>
+   <h3>主要依据</h3><p><span class="tag">熟期适配 96</span><span class="tag">抗逆能力 94</span><span class="tag">产量潜力 91</span><span class="tag">品质表现 89</span></p>
+   <h3>风险提示</h3><p class="yellow">5 月上旬存在低温窗口，建议避开 5 月 3—5 日冷空气过程；连作地块需关注根腐病风险。</p>
+   <h3>备选方案</h3><p>北豆 40（89.4分）适用于更强调蛋白品质的生产目标；黑科 59（86.8分）适用于高产目标。</p>
+ </div></section>
+ <section class="card"><div class="card-head"><div><div class="card-title">报告归档</div><div class="card-sub">历史推荐报告与复核状态</div></div></div><div class="card-body"><div class="timeline"><div class="timeline-item"><time>10:42</time><b>模型计算完成</b><p>生成 4 个候选品种。</p></div><div class="timeline-item"><time>10:43</time><b>解释与风险生成</b><p>识别 2 项主要风险。</p></div><div class="timeline-item"><time>10:45</time><b>农艺师复核</b><p>等待复核确认。</p></div></div></div></section>
+</div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

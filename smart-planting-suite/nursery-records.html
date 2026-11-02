@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>苗情记录｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>育苗管理决策</span><span>/</span><b>苗情记录</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>苗情记录</h1><p>记录出苗率、株高、叶龄、长势、病害、缺素和苗情图片。</p></div><div class="actions"><button class="btn primary" data-action="nursery-record">＋ 新增苗情记录</button></div></div>
+      <div class="metrics"><div class="metric"><div class="metric-label">在育批次</div><strong>12</strong><small>水稻 8 · 玉米 4</small></div><div class="metric"><div class="metric-label">平均出苗率</div><strong>92.4%</strong><small class="up">较上周 +1.2%</small></div><div class="metric"><div class="metric-label">长势良好</div><strong>9</strong><small>占比 75%</small></div><div class="metric"><div class="metric-label">需关注</div><strong class="yellow">3</strong><small>缺苗与徒长风险</small></div></div><section class="card"><div class="card-head"><div><div class="card-title">苗情档案</div><div class="card-sub">支持指标、图片、病害和缺素信息维护</div></div><div class="search">⌕<input data-filter-table="nurseryTable" placeholder="搜索批次"></div></div><div class="card-body"><div style="overflow:auto"><table id="nurseryTable"><thead><tr><th>批次</th><th>品种</th><th>阶段</th><th>出苗率</th><th>株高</th><th>叶龄</th><th>长势</th><th>记录日期</th><th>操作</th></tr></thead><tbody><tr><td>YM-2027-006</td><td>龙粳31</td><td>出苗期</td><td>92%</td><td>8.6cm</td><td>2.5叶</td><td>良好</td><td>2027-04-18</td><td><button class='btn small' data-action='detail'>详情</button></td></tr><tr><td>YM-2027-004</td><td>龙粳46</td><td>苗期管理</td><td>95%</td><td>12.4cm</td><td>3.2叶</td><td>良好</td><td>2027-04-18</td><td><button class='btn small' data-action='detail'>详情</button></td></tr><tr><td>YM-2027-003</td><td>绥粳18</td><td>苗期管理</td><td>86%</td><td>11.1cm</td><td>3.0叶</td><td>偏弱</td><td>2027-04-17</td><td><button class='btn small' data-action='detail'>详情</button></td></tr></tbody></table></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

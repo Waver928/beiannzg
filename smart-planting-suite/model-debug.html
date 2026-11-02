@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>模型在线调试｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div>
+    <div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link active" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><a href="models.html">模型管理</a><span>/</span><span>已发布模型</span><span>/</span><b>在线调试</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head">
+        <div><h1>模型在线调试</h1><p>选择已发布模型和模型因子，配置仿真参数并查看执行过程、输出结果与调用日志。</p></div>
+        <div class="actions"><select id="modelSelector" class="model-selector"><option value="variety">品种筛选决策子模型</option><option value="seed">种子处理决策子模型</option><option value="nursery">育苗管理决策子模型</option></select><a class="btn" href="models.html">返回模型列表</a></div>
+      </div>
+
+      <section class="model-debug-hero">
+        <div><div class="eyebrow">当前调试模型</div><h2 id="debugModelName">—</h2><p id="debugModelDesc">—</p><div id="debugModelTags"></div></div>
+        <div class="model-release"><span class="status ok">已发布</span><b id="debugModelVersion">—</b><small>运行版本</small><strong id="debugFeatureCount">7</strong><small>模型因子</small></div>
+      </section>
+
+      <section class="card debug-functions-card">
+        <div class="card-head"><div><div class="card-title">模型因子配置</div><div class="card-sub">选择参与当前模型计算的因子，配置输入参数并运行仿真</div></div><span class="tag" id="activeFeatureNo">模型因子 1 / 7</span></div>
+        <div class="card-body"><div class="debug-tabs" id="featureTabs"></div></div>
+      </section>
+
+      <div class="grid-2 debug-grid">
+        <section class="card">
+          <div class="card-head"><div><div class="card-title" id="featureTitle">调试参数</div><div class="card-sub" id="featureDesc">—</div></div><span class="status run">参数可编辑</span></div>
+          <div class="card-body"><div class="form-grid" id="debugForm"></div><div class="debug-form-note">仿真数据仅用于系统演示，可直接修改后执行。</div></div>
+        </section>
+        <section class="card">
+          <div class="card-head"><div><div class="card-title">模拟执行</div><div class="card-sub">展示参数校验、数据调用、规则计算和结果输出</div></div><span class="status" id="debugRunStatus">等待执行</span></div>
+          <div class="card-body">
+            <div class="debug-pipeline"><div class="debug-pipe active"><i>1</i><span>参数校验</span></div><div class="debug-pipe"><i>2</i><span>数据调用</span></div><div class="debug-pipe"><i>3</i><span>模型计算</span></div><div class="debug-pipe"><i>4</i><span>结果输出</span></div></div>
+            <div class="debug-run-box"><div class="progress"><i id="debugProgress" style="--p:0%"></i></div><p id="debugStage">等待开始调试</p><button class="btn primary debug-run-btn" id="runDebug">▶ 运行当前功能</button></div>
+          </div>
+        </section>
+      </div>
+
+      <section class="card" id="debugResultCard" style="margin-top:14px;display:none">
+        <div class="card-head"><div><div class="card-title" id="resultTitle">调试结果</div><div class="card-sub" id="resultMeta">—</div></div><div class="actions"><span class="status ok">执行成功</span><button class="btn small" id="copyResult">复制结果</button></div></div>
+        <div class="card-body"><div id="debugResult"></div><div class="request-log"><b>本次调用</b><code id="requestLog">—</code></div></div>
+      </section>
+
+      <section class="card" style="margin-top:14px">
+        <div class="card-head"><div><div class="card-title">模型因子清单</div><div class="card-sub">当前模型包含的 7 项核心输入、约束、评价与输出因子</div></div></div>
+        <div class="card-body"><div class="feature-coverage" id="featureCoverage"></div></div>
+      </section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+<script src="assets/model-debug.js"></script>
+</body>
+</html>

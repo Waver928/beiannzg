@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>品种库｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>品种筛选决策</span><span>/</span><b>品种库</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>品种库</h1><p>维护熟期、积温、抗性、产量潜力、品质和适宜区域等品种特性。</p></div><div class="actions"><button class="btn primary" data-action="add-variety">＋ 新增品种</button></div></div>
+      <div class="metrics"><div class="metric"><div class="metric-label">品种总数</div><strong>326</strong><small>审定信息完整</small></div><div class="metric"><div class="metric-label">大豆</div><strong>148</strong><small>早熟型 62 个</small></div><div class="metric"><div class="metric-label">玉米</div><strong>106</strong><small>早熟型 48 个</small></div><div class="metric"><div class="metric-label">水稻</div><strong>72</strong><small>寒地粳稻</small></div></div><section class="card"><div class="card-head"><div><div class="card-title">品种资源列表</div><div class="card-sub">支持新增、修改、查询和特性档案维护</div></div><div class="search">⌕<input data-filter-table="varietyTable" placeholder="搜索品种"></div></div><div class="card-body"><div style="overflow:auto"><table id="varietyTable"><thead><tr><th>品种名称</th><th>作物</th><th>熟期</th><th>需积温</th><th>主要抗性</th><th>品质</th><th>适宜区域</th><th>操作</th></tr></thead><tbody><tr><td>黑河 43</td><td>大豆</td><td>早熟</td><td>2,090℃</td><td>耐低温、抗倒伏</td><td>41.2%</td><td>黑龙江第四积温带</td><td><button class='btn small' data-action='detail'>查看</button></td></tr><tr><td>北豆 40</td><td>大豆</td><td>中早熟</td><td>2,150℃</td><td>稳产、高蛋白</td><td>42.1%</td><td>第三至第四积温带</td><td><button class='btn small' data-action='detail'>查看</button></td></tr><tr><td>德美亚 3号</td><td>玉米</td><td>早熟</td><td>2,050℃</td><td>耐密、脱水快</td><td>—</td><td>第四至第五积温带</td><td><button class='btn small' data-action='detail'>查看</button></td></tr><tr><td>龙粳 31</td><td>水稻</td><td>早熟</td><td>2,250℃</td><td>抗冷、食味优</td><td>—</td><td>第三至第四积温带</td><td><button class='btn small' data-action='detail'>查看</button></td></tr></tbody></table></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

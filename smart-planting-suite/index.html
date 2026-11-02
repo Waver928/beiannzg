@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>智慧种植决策模型工作台｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link active" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>系统总览</span><span>/</span><b>智慧种植决策模型工作台</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>智慧种植决策模型工作台</h1><p>汇总模型运行、推荐任务、风险提醒和生产过程执行情况。</p></div><div class="actions"></div></div>
+      
+<div class="metrics">
+  <div class="metric"><div class="metric-label"><span>已发布模型</span><i class="metric-ico">模</i></div><strong>3</strong><small><span class="up">3 个</span> 正常服务</small></div>
+  <div class="metric"><div class="metric-label"><span>今日模型调用</span><i class="metric-ico">算</i></div><strong>1,286</strong><small><span class="up">99.4%</span> 成功率</small></div>
+  <div class="metric"><div class="metric-label"><span>品种资源</span><i class="metric-ico">种</i></div><strong>326</strong><small>覆盖 3 类粮食作物</small></div>
+  <div class="metric"><div class="metric-label"><span>待处置提醒</span><i class="metric-ico">!</i></div><strong class="yellow">6</strong><small>低温、高湿与苗情异常</small></div>
+</div>
+<div class="grid-2">
+  <section class="card"><div class="card-head"><div><div class="card-title">模型运行态势</div><div class="card-sub">近 7 日模型调用量与成功率</div></div><span class="status ok">运行正常</span></div><div class="card-body">
+    <svg class="chart" viewBox="0 0 620 230" preserveAspectRatio="none"><g><line class="gridline" x1="35" y1="28" x2="600" y2="28"/><line class="gridline" x1="35" y1="85" x2="600" y2="85"/><line class="gridline" x1="35" y1="142" x2="600" y2="142"/><line class="gridline" x1="35" y1="199" x2="600" y2="199"/></g><path class="area" d="M40 172 L130 151 L220 157 L310 111 L400 124 L490 69 L595 45 L595 199 L40 199Z"/><polyline class="line" points="40,172 130,151 220,157 310,111 400,124 490,69 595,45"/><g class="axis"><text x="34" y="220">10-27</text><text x="120" y="220">10-28</text><text x="210" y="220">10-29</text><text x="300" y="220">10-30</text><text x="390" y="220">10-31</text><text x="480" y="220">11-01</text><text x="575" y="220">11-02</text></g></svg>
+  </div></section>
+  <section class="card"><div class="card-head"><div><div class="card-title">关键业务状态</div><div class="card-sub">四类业务流程完成度</div></div><a class="btn small" href="coverage.html">查看覆盖清单</a></div><div class="card-body">
+    <div class="timeline"><div class="timeline-item"><time>模型底座</time><b>9 个模型，18 个接口</b><p>版本、日志、解释与数据调用正常。</p></div><div class="timeline-item"><time>品种筛选</time><b>12 个推荐任务待复核</b><p>北岗1号地推荐结果已生成。</p></div><div class="timeline-item"><time>种子处理</time><b>3 个批次待处理</b><p>已匹配药剂与包衣参数。</p></div><div class="timeline-item"><time>育苗管理</time><b>6 条异常提醒</b><p>2 条高湿风险需要处置。</p></div></div>
+  </div></section>
+</div>
+
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

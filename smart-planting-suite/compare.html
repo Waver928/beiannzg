@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>结果评分与候选品种对比｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>品种筛选决策</span><span>/</span><b>结果评分与对比</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>结果评分与候选品种对比</h1><p>对适宜性、产量潜力、风险和品质进行评分、排序与明细对比。</p></div><div class="actions"><button class="btn primary" data-action="compare">更新对比</button></div></div>
+      
+<div class="grid-2">
+ <section class="card"><div class="card-head"><div><div class="card-title">候选品种</div><div class="card-sub">已选择 <b id="selectedCount">4</b> 个进行对比</div></div></div><div class="card-body"><div class="grid-equal"><div class="check-card selected"><input type="checkbox" checked><div><b>黑河 43</b><span>综合分 92.6 · 首选</span></div></div><div class="check-card selected"><input type="checkbox" checked><div><b>北豆 40</b><span>综合分 89.4 · 备选</span></div></div><div class="check-card selected"><input type="checkbox" checked><div><b>黑科 59</b><span>综合分 86.8</span></div></div><div class="check-card selected"><input type="checkbox" checked><div><b>垦豆 94</b><span>综合分 83.7</span></div></div></div></div></section>
+ <section class="card"><div class="card-head"><div><div class="card-title">综合评分排序</div><div class="card-sub">权重来自当前推荐规则</div></div></div><div class="card-body">
+   <div class="rule-row"><b>1 黑河 43</b><span>熟期 96</span><span>抗逆 94</span><div class="progress"><i style="--p:92.6%"></i></div><span class="score">92.6</span></div>
+   <div class="rule-row"><b>2 北豆 40</b><span>熟期 92</span><span>抗逆 90</span><div class="progress"><i style="--p:89.4%"></i></div><span class="score">89.4</span></div>
+   <div class="rule-row"><b>3 黑科 59</b><span>熟期 88</span><span>抗逆 86</span><div class="progress"><i style="--p:86.8%"></i></div><span class="score">86.8</span></div>
+ </div></section>
+</div>
+<section class="card"><div class="card-head"><div><div class="card-title">评分明细</div><div class="card-sub">各项指标均可追溯至数据来源与规则</div></div></div><div class="card-body"><div style="overflow:auto"><table id=""><thead><tr><th>品种</th><th>熟期适配</th><th>产量潜力</th><th>抗逆能力</th><th>品质表现</th><th>历史稳定</th><th>综合分</th></tr></thead><tbody><tr><td>黑河43</td><td>96</td><td>91</td><td>94</td><td>89</td><td>91</td><td><b class='yellow'>92.6</b></td></tr><tr><td>北豆40</td><td>92</td><td>89</td><td>90</td><td>93</td><td>87</td><td><b class='yellow'>89.4</b></td></tr><tr><td>黑科59</td><td>88</td><td>94</td><td>86</td><td>82</td><td>85</td><td><b class='yellow'>86.8</b></td></tr></tbody></table></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

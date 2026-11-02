@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>模型管理｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link active" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>模型基础框架</span><span>/</span><b>模型管理</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>模型管理</h1><p>统一维护模型配置与发布状态。已发布模型可直接进入在线调试，验证各项业务能力。</p></div><div class="actions"><button class="btn primary" data-action="new-model">＋ 新增模型</button></div></div>
+      <div class="metrics"><div class="metric"><div class="metric-label">模型总数</div><strong>3</strong><small>覆盖三类种植决策</small></div><div class="metric"><div class="metric-label">已发布</div><strong>3</strong><small class="up">全部服务可用</small></div><div class="metric"><div class="metric-label">功能点</div><strong class="yellow">21</strong><small>每个模型 7 项能力</small></div><div class="metric"><div class="metric-label">今日调试</div><strong>38</strong><small>成功率 100%</small></div></div>
+      <section class="card"><div class="card-head"><div><div class="card-title">已发布模型</div><div class="card-sub">点击“在线调试”，在统一调试界面中验证该模型的全部功能点</div></div><div class="search">⌕<input data-filter-table="modelTable" placeholder="搜索已发布模型"></div></div><div class="card-body"><div style="overflow:auto"><table id="modelTable"><thead><tr><th>模型名称</th><th>业务范围</th><th>运行版本</th><th>功能点</th><th>最近发布</th><th>状态</th><th>操作</th></tr></thead><tbody>
+        <tr><td><b>品种筛选决策子模型</b></td><td>大豆、玉米、水稻品种筛选</td><td>v2.6.1</td><td><span class="tag">7 项</span></td><td>2026-09-18</td><td><span class="status ok">已发布</span></td><td><button class="btn small" data-action="detail">详情</button> <a class="btn small primary" href="model-debug.html?model=variety">在线调试</a></td></tr>
+        <tr><td><b>种子处理决策子模型</b></td><td>播前种子状态与处理方案</td><td>v1.8.3</td><td><span class="tag">7 项</span></td><td>2026-10-12</td><td><span class="status ok">已发布</span></td><td><button class="btn small" data-action="detail">详情</button> <a class="btn small primary" href="model-debug.html?model=seed">在线调试</a></td></tr>
+        <tr><td><b>育苗管理决策子模型</b></td><td>育苗环境、苗情与过程跟踪</td><td>v2.2.0</td><td><span class="tag">7 项</span></td><td>2026-10-26</td><td><span class="status ok">已发布</span></td><td><button class="btn small" data-action="detail">详情</button> <a class="btn small primary" href="model-debug.html?model=nursery">在线调试</a></td></tr>
+      </tbody></table></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

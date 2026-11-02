@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>种子处理参数库｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>种子处理决策</span><span>/</span><b>处理参数库</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>种子处理参数库</h1><p>维护作物、品种和病虫害风险对应的处理方式、药剂和技术参数。</p></div><div class="actions"><button class="btn primary" data-action="seed-param">＋ 新增参数</button></div></div>
+      <section class="card"><div class="card-head"><div><div class="card-title">处理参数列表</div><div class="card-sub">参数作为种子处理决策的基础支撑</div></div><div class="search">⌕<input data-filter-table="seedParamTable" placeholder="搜索参数"></div></div><div class="card-body"><div style="overflow:auto"><table id="seedParamTable"><thead><tr><th>作物</th><th>风险对象</th><th>处理方式</th><th>推荐用量</th><th>作业窗口</th><th>状态</th><th>操作</th></tr></thead><tbody><tr><td>大豆</td><td>根腐病、地下害虫</td><td>复合种衣剂包衣</td><td>种子量0.3%</td><td>播前1—2天</td><td><span class='status ok'>启用</span></td><td><button class='btn small' data-action='detail'>查看</button></td></tr><tr><td>大豆</td><td>低温播种</td><td>晒种精选</td><td>晴天1—2天</td><td>播前5—7天</td><td><span class='status ok'>启用</span></td><td><button class='btn small' data-action='detail'>查看</button></td></tr><tr><td>玉米</td><td>丝黑穗病</td><td>药剂拌种</td><td>按标签用量</td><td>播前1天</td><td><span class='status ok'>启用</span></td><td><button class='btn small' data-action='detail'>查看</button></td></tr></tbody></table></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

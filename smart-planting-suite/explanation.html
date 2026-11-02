@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>模型解释｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link active" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>模型基础框架</span><span>/</span><b>模型解释</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>模型解释</h1><p>展示影响推荐结果的主要指标、规则与权重，说明适用条件和结果限制。</p></div><div class="actions"><button class="btn" data-action="export" data-file="模型解释说明已生成">导出解释</button></div></div>
+      
+<div class="grid-2">
+  <section class="card"><div class="card-head"><div><div class="card-title">黑河 43 推荐解释</div><div class="card-sub">北岗1号地 · 综合评分 92.6</div></div><span class="status ok">可解释</span></div><div class="card-body">
+    <div class="rule-row"><b>熟期适配</b><span>贡献 +28.4</span><span>需积温 2,090℃，安全余量 125℃</span><span class="score">96</span><span></span></div>
+    <div class="rule-row"><b>抗逆能力</b><span>贡献 +23.1</span><span>耐低温、抗倒伏表现较好</span><span class="score">94</span><span></span></div>
+    <div class="rule-row"><b>产量潜力</b><span>贡献 +22.6</span><span>相似地块近5年均产208.7kg</span><span class="score">91</span><span></span></div>
+    <div class="rule-row"><b>品质表现</b><span>贡献 +18.5</span><span>蛋白含量 41.2%</span><span class="score">89</span><span></span></div>
+  </div></section>
+  <section class="card"><div class="card-head"><div><div class="card-title">适用条件与限制</div><div class="card-sub">结果使用边界</div></div></div><div class="card-body">
+    <div class="timeline"><div class="timeline-item"><b>适用区域</b><p>黑龙江第三至第五积温带的旱作地块。</p></div><div class="timeline-item"><b>数据时效</b><p>气象数据需为近 24 小时，土壤检测建议不超过 3 年。</p></div><div class="timeline-item"><b>结果限制</b><p>极端灾害年份需结合专家意见复核，模型不替代农艺师最终决策。</p></div><div class="timeline-item"><b>敏感因素</b><p>有效积温、无霜期和地块排水能力对结果影响最大。</p></div></div>
+  </div></section>
+</div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

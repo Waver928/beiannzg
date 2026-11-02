@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>版本管理｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link active" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>模型基础框架</span><span>/</span><b>版本管理</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>版本管理</h1><p>记录模型版本、参数变更、发布时间与更新说明，支持历史查看和版本回退。</p></div><div class="actions"><button class="btn primary" data-action="publish-model">发布新版本</button></div></div>
+      <section class="card"><div class="card-head"><div><div class="card-title">版本历史</div><div class="card-sub">寒地大豆品种筛选模型</div></div></div><div class="card-body"><div style="overflow:auto"><table id=""><thead><tr><th>版本</th><th>类型</th><th>发布时间</th><th>更新说明</th><th>发布人</th><th>状态</th><th>操作</th></tr></thead><tbody><tr><td>v2.6.1</td><td>运行版本</td><td>2026-09-18</td><td>更新2025年历史产量样本、优化早霜风险</td><td>王立新</td><td><span class='status ok'>当前</span></td><td></td></tr><tr><td>v2.5.3</td><td>稳定版本</td><td>2026-04-02</td><td>优化寒地早霜风险权重</td><td>王立新</td><td><span class='status off'>历史</span></td><td><button class='btn small warn' data-action='rollback' data-version='v2.5.3'>回退</button></td></tr><tr><td>v2.4.0</td><td>稳定版本</td><td>2025-11-26</td><td>新增模型解释与适用条件说明</td><td>张晓峰</td><td><span class='status off'>历史</span></td><td><button class='btn small warn' data-action='rollback' data-version='v2.4.0'>回退</button></td></tr></tbody></table></div></div></section>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

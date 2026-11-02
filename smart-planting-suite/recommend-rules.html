@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>品种推荐规则｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>品种筛选决策</span><span>/</span><b>推荐规则</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>品种推荐规则</h1><p>结合生产目标与约束排除不满足熟期、抗性或区域要求的品种。</p></div><div class="actions"><button class="btn primary" data-action="simulate-recommend">运行规则模拟</button></div></div>
+      
+<div class="grid-2">
+ <section class="card"><div class="card-head"><div><div class="card-title">推荐条件</div><div class="card-sub">北岗1号地 · 大豆</div></div></div><div class="card-body"><div class="form-grid"><div class="form-item"><label>生产目标</label><select><option>稳产抗逆</option><option>高产潜力</option><option>高蛋白</option></select></div><div class="form-item"><label>目标产量</label><input value="210 kg/亩"></div><div class="form-item"><label>最大需积温</label><input value="2,135℃"></div><div class="form-item"><label>最低抗倒伏等级</label><select><option>强</option><option>中强</option></select></div><div class="form-item full"><label>区域要求</label><select><option>必须通过黑龙江第四积温带审定</option></select></div></div></div></section>
+ <section class="card"><div class="card-head"><div><div class="card-title">规则执行预览</div><div class="card-sub">326 个品种逐级过滤</div></div></div><div class="card-body"><div class="timeline"><div class="timeline-item"><b>作物类型过滤</b><p>保留大豆品种 148 个</p></div><div class="timeline-item"><b>熟期与积温过滤</b><p>保留 62 个</p></div><div class="timeline-item"><b>区域审定过滤</b><p>保留 28 个</p></div><div class="timeline-item"><b>抗性与生产目标过滤</b><p>形成候选品种 15 个</p></div></div></div></section>
+</div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

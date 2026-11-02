@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>育苗计划｜寒地粮食作物智慧种植决策模型</title>
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">✦</div><div><b>北安智慧种植</b><small>决策模型演示系统</small></div></div>
+    <div class="nav-group"><div class="nav-group-title">系统总览</div><a class="nav-link" href="index.html"><i class="nav-ico">⌂</i><span>智慧种植决策模型工作台</span></a></div><div class="nav-group"><div class="nav-group-title">模型基础框架</div><a class="nav-link" href="models.html"><i class="nav-ico">模</i><span>模型管理</span></a><a class="nav-link" href="rules.html"><i class="nav-ico">规</i><span>规则引擎</span></a><a class="nav-link" href="compute.html"><i class="nav-ico">算</i><span>模型计算</span></a><a class="nav-link" href="data-calls.html"><i class="nav-ico">数</i><span>数据调用</span></a><a class="nav-link" href="api.html"><i class="nav-ico">接</i><span>接口发布</span></a><a class="nav-link" href="versions.html"><i class="nav-ico">版</i><span>版本管理</span></a><a class="nav-link" href="logs.html"><i class="nav-ico">志</i><span>运行日志</span></a><a class="nav-link" href="explanation.html"><i class="nav-ico">释</i><span>模型解释</span></a></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div class="crumbs"><button class="icon-btn mobile-menu" id="mobileMenu">☰</button><span>育苗管理决策</span><span>/</span><b>育苗计划</b></div>
+      <div class="top-actions"><span class="clock" id="clock"></span><button class="icon-btn" onclick="location.reload()">↻</button><div class="avatar">管</div></div>
+    </header>
+    <div class="content">
+      <div class="page-head"><div><h1>育苗计划</h1><p>划分育苗阶段，配置环境阈值，生成管理措施和农事节点建议。</p></div><div class="actions"><select><option>YM-2027-006 水稻育苗批次</option></select></div></div>
+      
+<div class="stepper"><div class="step done"><span class="step-num">01</span><b>播种阶段</b><p>04-10 至 04-12 · 温度 25—28℃</p></div><div class="step active"><span class="step-num">02</span><b>出苗阶段</b><p>04-13 至 04-20 · 湿度 65—75%</p></div><div class="step"><span class="step-num">03</span><b>苗期管理</b><p>04-21 至 05-05 · 控温通风</p></div><div class="step"><span class="step-num">04</span><b>移栽准备</b><p>05-06 至 05-15 · 炼苗控水</p></div></div>
+<div class="grid-2" style="margin-top:14px">
+ <section class="card"><div class="card-head"><div><div class="card-title">环境阈值</div><div class="card-sub">当前阶段：出苗期</div></div><span class="status ok">监测中</span></div><div class="card-body"><div style="overflow:auto"><table id=""><thead><tr><th>指标</th><th>适宜范围</th><th>告警阈值</th><th>当前值</th><th>状态</th></tr></thead><tbody><tr><td>昼温</td><td>22—26℃</td><td>>30℃</td><td>24.6℃</td><td><span class='status ok'>正常</span></td></tr><tr><td>夜温</td><td>15—18℃</td><td><12℃</td><td>16.2℃</td><td><span class='status ok'>正常</span></td></tr><tr><td>空气湿度</td><td>65—75%</td><td>>85%</td><td>82%</td><td><span class='status warn'>偏高</span></td></tr><tr><td>基质水分</td><td>60—70%</td><td><50%</td><td>66%</td><td><span class='status ok'>正常</span></td></tr><tr><td>光照</td><td>12—14h</td><td><8h</td><td>11.6h</td><td><span class='status warn'>不足</span></td></tr></tbody></table></div></div></section>
+ <section class="card"><div class="card-head"><div><div class="card-title">管理措施与农事节点</div><div class="card-sub">根据阶段、环境和天气动态生成</div></div></div><div class="card-body"><div class="timeline"><div class="timeline-item"><time>今日 11:30</time><b>通风降湿</b><p>湿度偏高，建议开启侧窗通风 25 分钟。</p></div><div class="timeline-item"><time>今日 16:00</time><b>补光检查</b><p>连续阴天，建议延长补光 2 小时。</p></div><div class="timeline-item"><time>05-06</time><b>开始炼苗</b><p>逐步降低夜温并增加通风时长。</p></div><div class="timeline-item"><time>05-12</time><b>移栽准备</b><p>结合天气预报控水，检查秧苗一致性。</p></div></div></div></section>
+</div>
+    </div>
+  </main>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>
